@@ -2,9 +2,6 @@
 
 @section('content')
 
-
-
-
     <section class="page-section">
         <div class="container">
             <div class="product-item">
@@ -21,15 +18,18 @@
                     <div class="bg-faded p-5 rounded">
                         <p class="mb-0">{{ $products->description }}</p><br>
                         <div class="intro-button mx-auto">
+                            <a class="btn btn-success btn-x2" href="{{route('order.show', ['id'=>$products->id])}}">Zamów!</a>
+                        </div>
+
+                        <div class="intro-button mx-auto" style="margin-top: 20px;">
                             <a class="btn btn-primary btn-x2" href="{{route('products.index')}}">Powrót</a>
                         </div>
+
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-
-
 
 @endsection

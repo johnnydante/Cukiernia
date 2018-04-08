@@ -47,8 +47,8 @@ class AddProductRequest extends FormRequest
         return [
             'nazwa' => 'required|max:60',
             'cena' => 'required',
-            'description' => 'required|min:50|minwords:10',
-            'filename' =>'required|mimes:jpg,jpeg|dimensions:min_width=900,min_height=600,max_width:1200,max_height=960',
+            'description' => 'required|min:10|minwords:3',
+            'filename' =>'required|mimes:jpg,jpeg|dimensions:min_width=300,min_height=200,max_width:3000,max_height=2000',
         ];
     }
     public function messages()

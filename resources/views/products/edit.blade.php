@@ -2,7 +2,8 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="max-width: 700px; color: orange">
+
         {!! Form::model($products, ['route' => ['product.update', $products->id], 'method' => 'POST']) !!}
 
         @if($errors->any())
@@ -37,6 +38,7 @@
         </div>
 
         {!! Form::close() !!}
+
     </div>
 
 
