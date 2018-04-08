@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddProductRequest;
+use App\Http\Requests\EditProductRequest;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('id', 'DESC')->paginate(12);
 
         return view('products.products',  compact('products'));
     }
@@ -40,7 +44,7 @@ class ProductsController extends Controller
      */
     public function store(AddProductRequest $request)
     {
-        if(Auth::check()) {
+        if(Auth::user()->isAdmin()) {
             $request->file('filename')->store('public/products_img');
             Product::create(
                 $request->except('filename') +
@@ -83,9 +87,9 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditProductRequest $request, $id)
     {
-        if(Auth::check()) {
+        if(Auth::user()->isAdmin()) {
 
             Product::find($id)->update(
                 $request->except('filename')
@@ -102,7 +106,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        if(Auth::check()){
+        if(Auth::user()->isAdmin()){
             Product::find($id)->delete();
             return redirect()->back();
         }

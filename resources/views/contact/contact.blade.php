@@ -8,57 +8,72 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
-                    <div class="cta-inner text-center rounded">
+                    <div class="cta-inner rounded">
                         <h2 class="section-heading mb-5">
-                            <span class="section-heading-upper">Chcesz złożyć zamówienie?</span>
+                            <span class="section-heading-upper">Masz jakieś pytania?</span>
                             <span class="section-heading-lower">Skontaktuj się z nami</span>
                         </h2>
-                        <ul class="list-unstyled list-hours mb-5 text-left mx-auto">
-                            <li class="list-unstyled-item list-hours-item d-flex">
-                                <strong> Tel:</strong>
-                                <span class="ml-auto">555 555 555</span>
-                            </li>
-                            <li class="list-unstyled-item list-hours-item d-flex">
-                                <p class="address mb-5">
-                                    <em>
-                                        Adres:
+                        <div style="position:relative; z-index: 1;">
+                            {!! Form::open(['route' => 'contact.postContact', 'method' => 'POST']) !!}
 
-                                    </em>
-                                </p>
+                            @if($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <div class="btn btn-danger">{{ $error }}</div>
+                                @endforeach
+                            @endif
 
-                                <span class="ml-auto"></span>
-                            </li>
-                        </ul>
+                            <div class="form-group">
+                                {!! Form::label('imie', "Imię:") !!}
+                                @auth
+                                {!! Form::text('imie', Auth::user()->name, ['class' => 'form-control']) !!}
+                                    @else
+                                    {!! Form::text('imie', null, ['class' => 'form-control']) !!}
+                                @endauth
+                            </div>
 
+                            <div class="form-group">
+                                {!! Form::label('nazwisko', "Nazwisko:") !!}
+                                @auth
+                                {!! Form::text('nazwisko', Auth::user()->surname, ['class' => 'form-control']) !!}
+                                    @else
+                                    {!! Form::text('nazwisko', null, ['class' => 'form-control']) !!}
+                                @endauth
+                            </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                            <div class="form-group">
+                                {!! Form::label('wiadomosc', "Wiadomość:") !!}
+                                {!! Form::textarea('wiadomosc', null, ['class' => 'form-control']) !!}
+                            </div>
 
-    <section class="page-section about-heading">
-        <div class="container">
-            <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="{{url("/temp/img/about.jpg")}}" alt="">
-            <div class="about-heading-content">
-                <div class="row">
-                    <div class="col-xl-9 col-lg-10 mx-auto">
-                        <div class="bg-faded rounded p-5">
-                            <h2 class="section-heading mb-4">
-                                <span class="section-heading-upper">Strong Coffee, Strong Roots</span>
-                                <span class="section-heading-lower">About Our Cafe</span>
-                            </h2>
-                            <p>Founded in 1987 by the Hernandez brothers, our establishment has been serving up rich coffee sourced from artisan farmers in various regions of South and Central America. We are dedicated to travelling the world, finding the best coffee, and bringing back to you here in our cafe.</p>
-                            <p class="mb-0">We guarantee that you will fall in
-                                <em>lust</em>
-                                with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.</p>
+                            <div class="form-group">
+                                {!! Form::label('tel', "Numer telefonu:") !!}
+                                @auth
+                                    {!! Form::text('tel', Auth::user()->tel, ['class' => 'form-control']) !!}
+                                @else
+                                    {!! Form::text('tel', null, ['class' => 'form-control']) !!}
+                                @endauth
+                            </div>
+
+                            <div class="form-group">
+                                {!! Form::label('email', "Twój email:") !!}
+                                @auth
+                                    {!! Form::email('email', Auth::user()->email, ['class' => 'form-control']) !!}
+                                @else
+                                   {!! Form::email('email', null, ['class' => 'form-control']) !!}
+                                @endauth
+                            </div>
+
+                            <div class="form-group">
+                                {!! Form::submit('Wyślij', ['class' => 'btn btn-primary']) !!}
+                            </div>
+
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 
 
 @endsection

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container" style="max-width: 700px; color: orange">
     {!! Form::open(['route' => 'product.store', 'files' => true]) !!}
 
     @if($errors->any())

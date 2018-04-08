@@ -18,6 +18,14 @@ return [
 
     'driver' => env('MAIL_DRIVER', 'smtp'),
 
+    'mailgun' => [
+        'domain' => 'your-mailgun-domain',
+        'secret' => 'your-mailgun-key',
+    ],
+
+    'sparkpost' => [
+        'secret' => 'your-sparkpost-key',
+    ],
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address
