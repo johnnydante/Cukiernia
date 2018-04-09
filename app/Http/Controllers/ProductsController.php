@@ -45,6 +45,8 @@ class ProductsController extends Controller
     public function store(AddProductRequest $request)
     {
         if(Auth::user()->isAdmin()) {
+
+
             $request->file('filename')->store('public/products_img');
             Product::create(
                 $request->except('filename') +
