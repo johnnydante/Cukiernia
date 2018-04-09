@@ -7,7 +7,7 @@
                 <div class="col-xl-9 mx-auto">
                     <div class="cta-inner rounded">
                         <h2 class="section-heading mb-5">
-                            <span class="section-heading-upper" style="margin-bottom: 30px;">Moje zamowienia -
+                            <span class="section-heading-upper" style="margin-bottom: 30px;">Zamowienia -
                                 @if(request()->routeIs('order.index'))
                                     Oczekujące
                                 @elseif(request()->routeIs('order.index_wTrakcie'))

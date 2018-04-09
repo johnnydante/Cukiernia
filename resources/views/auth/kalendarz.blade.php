@@ -41,8 +41,6 @@
        {!! Form::close() !!}
       </div>
 
-      <div id='calendar' style="z-index: 25;"></div>
-
          <div class="row" style="position: relative; z-index: 10;">
           @if($wybik = count($_POST['terminyBezZamowien'])>0)
            Terminy niedostępne z powodu zbyt dużej ilości zamówień:
@@ -59,7 +57,10 @@
              {{$termin}},
             @endforeach
            @endif
-      </div>
+         </div>
+
+         <div id='calendar' style="z-index: 25;"></div>
+
      </div>
     </div>
    </div>
