@@ -7,6 +7,8 @@ use App\Http\Requests\EditProductRequest;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Intervention\Image\Facades\Image;
 
 class ProductsController extends Controller
 {
@@ -20,7 +22,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'DESC')->paginate(12);
+        $products = Product::orderBy('id', 'DESC')->where('rodzaj', 'ciasto')->paginate(12);
 
         return view('products.products',  compact('products'));
     }
@@ -32,8 +34,10 @@ class ProductsController extends Controller
      */
     public function create()
     {
-
-        return view('products.create');
+        if(Auth::user()->isAdmin()) {
+            return view('products.create');
+            }
+        else redirect(route('home'));
     }
 
     /**
@@ -46,14 +50,20 @@ class ProductsController extends Controller
     {
         if(Auth::user()->isAdmin()) {
 
+            $image = Input::file('filename');
+            $filename  = time() . '.' . $image->getClientOriginalExtension();
+            $path = public_path('storage/products_img/' . $filename);
+            Image::make($image->getRealPath())->resize(900, 640)->save($path);
 
-            $request->file('filename')->store('public/products_img');
+//            $request->file('filename')->store('public/products_img');
             Product::create(
                 $request->except('filename') +
-                ['filename' => $request->file('filename')->hashName()]
+                ['filename' => $filename, 'rodzaj' => 'ciasto']
             );
+
             return redirect(route('products.index'));
         }
+        else redirect(route('home'));
     }
 
     /**
@@ -78,8 +88,11 @@ class ProductsController extends Controller
      */
     public function edit(Product $id)
     {
+        if(Auth::user()->isAdmin()) {
         $products = Product::find($id)->first();
         return view('products.edit', compact('products'));
+        }
+        else redirect(route('home'));
     }
 
     /**
@@ -98,6 +111,7 @@ class ProductsController extends Controller
             );
             return redirect(route('products.index'));
         }
+        else redirect(route('home'));
     }
 
     /**
@@ -112,6 +126,6 @@ class ProductsController extends Controller
             Product::find($id)->delete();
             return redirect()->back();
         }
-
+        else redirect(route('home'));
     }
 }

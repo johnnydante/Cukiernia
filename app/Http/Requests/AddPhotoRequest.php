@@ -24,7 +24,7 @@ class AddPhotoRequest extends FormRequest
     public function rules()
     {
         return [
-            'filename' =>'required|mimes:jpg,jpeg|dimensions:min_width=36,min_height=24,max_width:7200,max_height=4800'
+            'filename' =>'required|mimes:jpg,jpeg'
         ];
     }
 

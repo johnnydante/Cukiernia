@@ -2,6 +2,12 @@
 
 @section('content')
 
+    <style>
+        .intro-img {
+            border-radius: 50px!important;
+        }
+
+    </style>
 
 
     <section class="page-section clearfix">

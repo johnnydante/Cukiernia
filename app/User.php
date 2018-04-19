@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Order', 'users_id', 'id');
     }
+
+    public function getTort()
+    {
+        return $this->hasMany('App\Tort', 'users_id', 'id');
+    }
 }

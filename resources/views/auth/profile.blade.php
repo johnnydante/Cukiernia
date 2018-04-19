@@ -9,16 +9,16 @@
 
                             <div class="intro-button mx-auto" style="position: absolute; top: 50px; right: 50px;">
                                 <a class="btn btn-outline-primary btn-x2" href="{{route('zamowienia.show')}}">Moje zamówienia
-                                    @if( Auth::user()->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count() >0)
-                                        ({{ Auth::user()->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count() }})
+                                    @if( (Auth::user()->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count() >0) || Auth::user()->getTort()->whereIn('status', ['oczekuje', 'w realizacji'])->count() >0 )
+                                        ({{ Auth::user()->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count()+ Auth::user()->getTort()->whereIn('status', ['oczekuje', 'w realizacji'])->count() }})
                                     @endif
                                 </a>
                             </div>
 
                             <div class="intro-button mx-auto" style="position: absolute; top: 110px; right: 50px; z-index: 10;">
                                 <a class="btn btn-outline-success btn-x2" href="{{route('koszyk.index')}}">Koszyk <i class="fas fa-cart-arrow-down"></i>
-                                    @if( Auth::user()->getOrder()->where('status', 'koszyk')->count() >0)
-                                        ({{ Auth::user()->getOrder()->where('status', 'koszyk')->count() }})
+                                    @if( (Auth::user()->getOrder()->where('status', 'koszyk')->count() >0) || Auth::user()->getTort()->where('status', 'koszyk')->count() >0 )
+                                        ({{ Auth::user()->getOrder()->where('status', 'koszyk')->count()+ Auth::user()->getTort()->where('status', 'koszyk')->count() }})
                                     @endif
                                 </a>
                             </div>

@@ -3,7 +3,6 @@
 @section('content')
 
 
-
     <section class="page-section about-heading">
         <div class="container">
             <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="{{url("/temp/img/about.jpg")}}" alt="" >

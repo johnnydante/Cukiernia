@@ -96,6 +96,12 @@ Route::get('order/delete/{id}', 'OrderController@destroy')
 Route::get('zamowienia', 'KoszykController@show')
     ->name('zamowienia.show');
 
+Route::get('realizacja', 'KoszykController@showRealizowane')
+    ->name('wRealizacji.show');
+
+Route::get('zrealizowane', 'KoszykController@showSkonczone')
+    ->name('skonczone.show');
+
 Route::get('koszyk/update', 'KoszykController@update')
     ->name('koszyk.update');
 
@@ -128,3 +134,78 @@ Route::post('kalendarz/dodaj', 'KalendarzController@store')
 
 Route::post('kalendarz/usun', 'KalendarzController@destroy')
     ->name('kalendarz.usun');
+
+Route::get('produktyGlowna', 'ProduktyGlownaController@index')
+    ->name('productsGlowna.index');
+
+Route::get('ciasteczka', 'CiasteczkaController@index')
+    ->name('ciasteczka.index');
+
+Route::get('ciasteczko/show/{id}', 'CiasteczkaController@show')
+    ->name('ciasteczko.index');
+
+Route::get('ciasteczko/dodaj', 'CiasteczkaController@create')
+    ->name('ciasteczko.create');
+
+Route::post('ciasteczka', 'CiasteczkaController@store')
+    ->name('ciasteczko.store');
+
+Route::get('ciasteczko/edytuj/{id}', 'CiasteczkaController@edit')
+    ->name('ciasteczko.edit');
+
+Route::get('ciasteczko/usun/{id}', 'CiasteczkaController@destroy')
+    ->name('ciasteczko.delete');
+
+Route::post('ciasteczko/update/{id}', 'CiasteczkaController@update')
+    ->name('ciasteczko.update');
+
+Route::get('kategorie', 'KategorieTortowController@index')
+    ->name('torty.index');
+
+Route::get('kategorie/edit/{id}', 'KategorieTortowController@edit')
+    ->name('torty.edit');
+
+Route::post('kategorie/update/{id}', 'KategorieTortowController@update')
+    ->name('torty.update');
+
+Route::get('tort/{id}', 'KategorieTortowController@show')
+    ->name('tort.show');
+
+Route::get('kategoria/dodaj', 'KategorieTortowController@create')
+    ->name('tort.dodaj');
+
+Route::post('kategorie', 'KategorieTortowController@store')
+    ->name('tort.store');
+
+Route::get('kategoria/usun/{id}', 'KategorieTortowController@destroy')
+    ->name('tort.usun');
+
+Route::get('tort/zamow/{id}', 'TortyController@index')
+    ->name('zamowTort.index');
+
+Route::post('tort/zamow/{id}', 'TortyController@store')
+    ->name('zamowTort.store');
+
+Route::get('tort_order/delete/{id}', 'TortyController@destroy')
+    ->name('tort_order.delete');
+
+Route::get('tort_order/edit/{id}', 'TortyController@edit')
+    ->name('tort_order.edit');
+
+Route::post('tort_order/edit/{id}', 'TortyController@update')
+    ->name('tort_order.update');
+
+Route::get('tort_zdjecie/delete/{id}', 'TortyController@destroy_zdjecie')
+    ->name('tort_zdjecie.delete');
+
+Route::get('tort/update/realizacja/{id}', 'OrderController@updateTortDoRealizacji')
+    ->name('order.updateTortDoRealizacji');
+
+Route::get('tort/update/zrealizowane/{id}', 'OrderController@updateTortZrealizowane')
+    ->name('order.updateTortZrealizowane');
+
+Route::post('tort/cena/{id}', 'OrderController@tortNadajCene')
+    ->name('tort.nadajCene');
+
+Route::get('galeria/{id}/{numer}', 'GalleryController@show')
+    ->name('gallery.show');
