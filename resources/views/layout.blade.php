@@ -110,25 +110,29 @@
     <link href="{{url("/css/fullcalendar.css")}}" rel="stylesheet">
 
 
+
 </head>
 
 <body>
-
+{{--@if(!request()->routeIs('home'))
+    <li><a class="btn btn-outline-primary btn-x2" style="position: absolute; top: 30px; left: 40px;" href="{{ redirect()->getUrlGenerator()->previous() }}">{{ __('Powrót') }}</a></li>
+@endif--}}
 <h1 class="site-heading text-center text-white d-none d-lg-block">
     <span class="site-heading-lower mb-3">Cukiernia</span>
     <span class="site-heading-upper text-primary">słodkości nigdy za wiele</span>
 
 </h1>
 @guest
-    <li><a class="btn btn-outline-warning btn-x2" style="position: absolute; top: 30px; right: 40px;" href="{{ route('login') }}">{{ __('Logowanie') }}</a></li>
-    <li><a class="btn btn-outline-warning btn-x2" style="position: absolute; top: 80px; right: 40px;" href="{{ route('register') }}">{{ __('Rejestracja') }}</a></li>
-@else
-    <li>
+    <li><a class="btn btn-outline-warning btn-x2" style="position: absolute; top: 30px; right: 40px; z-index: 10;" href="{{ route('login') }}">{{ __('Logowanie') }}</a></li>
+    <li><a class="btn btn-outline-warning btn-x2" style="position: absolute; top: 80px; right: 40px; z-index: 10;" href="{{ route('register') }}">{{ __('Rejestracja') }}</a></li>
 
-        <a class="btn btn-outline-warning btn-x2" style="position: absolute; top: 30px; right: 40px;"
+@else
+
+
+        <a class="btn btn-outline-warning btn-x2" style="position: fixed; top: 30px; right: 40px; z-index: 10;"
            href="{{ route('profile.index') }}">Mój profil</a>
-    </li>
-    <a class="btn btn-outline-danger btn-x2" style="position: absolute; top: 80px; right: 40px;" href="{{ route('logout') }}"
+
+    <a class="btn btn-outline-danger btn-x2" style="position: fixed; top: 80px; right: 40px; z-index: 10;" href="{{ route('logout') }}"
         onclick="event.preventDefault();
         document.getElementById('logout-form').submit();">
     {{ __('Wyloguj') }}
@@ -137,11 +141,13 @@
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
              @csrf
         </form>
-    <div class="intro-button mx-auto" style="position: absolute; top: 30px; right: 170px;">
+    <div class="intro-button mx-auto" style="position: fixed; top: 30px; right: 170px; z-index: 10;">
         <a class="btn btn-outline-success btn-x2" href="{{route('koszyk.index')}}">Koszyk <i class="fas fa-cart-arrow-down"></i>
-            @if( Auth::user()->getOrder()->where('status', 'koszyk')->count() >0)
-                ({{ Auth::user()->getOrder()->where('status', 'koszyk')->count() }})
+
+            @if( (Auth::user()->getOrder()->where('status', 'koszyk')->count() >0) || Auth::user()->getTort()->where('status', 'koszyk')->count() >0 )
+                ({{ Auth::user()->getOrder()->where('status', 'koszyk')->count()+ Auth::user()->getTort()->where('status', 'koszyk')->count() }})
             @endif
+
         </a>
     </div>
 @endguest
@@ -162,13 +168,13 @@
                     <li class="nav-item px-lg-4 {{ (request()->routeIs('about.index')) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('about.index')}}">O nas</a>
                     </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['products.index','product.index'])) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('products.index')}}">Produkty</a>
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['products.index', 'tort.show', 'product.index', 'torty.index', 'ciasteczka.index', 'ciasteczko.index', 'productsGlowna.index'])) ? 'active': ''}}">
+                        <a class="nav-link text-uppercase text-expanded" href="{{route('productsGlowna.index')}}">Produkty</a>
                     </li>
                     <li class="nav-item px-lg-4 {{ (request()->routeIs('contact.index', 'contact.postContact')) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('contact.index')}}">Kontakt</a>
                     </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs('gallery.index')) ? 'active': ''}}">
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['gallery.index', 'gallery.show', 'gallery.create'])) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('gallery.index')}}">Galeria tortów</a>
                     </li>
                 </ul>
@@ -177,17 +183,17 @@
     </nav>
     <nav class="navbar navbar-expand-lg navbar-light py-lg-4" id="mainNav" style="background-color: darkolivegreen;">
         <div class="container" >
-            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{{route('home')}}">Cukiernia</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{{route('users.index')}}">Panel admina</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive2" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon" ></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
+            <div class="collapse navbar-collapse" id="navbarResponsive2">
                 <ul class="navbar-nav mx-auto">
 
                     <li class="nav-item px-lg-4 {{ (request()->routeIs('users.index')) ? 'active': ''}}" >
                         <a class="nav-link text-uppercase text-expanded" href="{{route('users.index')}}">Użytkownicy</a>
                     </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs('order.index')) ? 'active': ''}}">
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['order.index', 'order.index_wTrakcie', 'order.index_zrealizowane'])) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('order.index')}}">Zamówienia</a>
                     </li>
                     <li class="nav-item px-lg-4 {{ (request()->routeIs('kalendarz.index')) ? 'active': ''}}">
@@ -212,13 +218,13 @@
                     <li class="nav-item px-lg-4 {{ (request()->routeIs('about.index')) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('about.index')}}">O nas</a>
                     </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['products.index','product.index'])) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('products.index')}}">Produkty</a>
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['products.index','product.index', 'torty.index', 'ciasteczka.index', 'ciasteczko.index', 'productsGlowna.index'])) ? 'active': ''}}">
+                        <a class="nav-link text-uppercase text-expanded" href="{{route('productsGlowna.index')}}">Produkty</a>
                     </li>
                     <li class="nav-item px-lg-4 {{ (request()->routeIs('contact.index', 'contact.postContact')) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('contact.index')}}">Kontakt</a>
                     </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs('gallery.index')) ? 'active': ''}}">
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['gallery.index', 'gallery.create', 'gallery.show'])) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('gallery.index')}}">Galeria tortów</a>
                     </li>
                 </ul>
@@ -267,22 +273,8 @@
         });
 
     </script>
-
     <script src="{{url("/js/fullcalendar.js")}}"></script>
-    <script>
-        $(function() {
-
-            // page is now ready, initialize the calendar...
-
-            $('#calendar').fullCalendar({
-                // put your options and callbacks here
-                left:   'title',
-                center: 'prevYear nextYear',
-                right:  'today prev,next'
-            })
-
-        });
-    </script>
+@yield('scripts')
 
 </body>
 

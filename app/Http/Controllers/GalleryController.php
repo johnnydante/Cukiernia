@@ -6,6 +6,8 @@ use App\Photos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddPhotoRequest;
+use Illuminate\Support\Facades\Input;
+use Intervention\Image\Facades\Image;
 
 class GalleryController extends Controller
 {
@@ -16,9 +18,15 @@ class GalleryController extends Controller
      */
     public function index()
     {
+
         $photos = Photos::orderBy('id', 'DESC')->paginate(12);
+
+
+        $_POST['i'] = -11 + 12*$photos->currentPage();
+
         return view('galleries.gallery', compact('photos'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,13 +47,20 @@ class GalleryController extends Controller
     public function store(AddPhotoRequest $request)
     {
         if(Auth::user()->isAdmin()) {
-            $request->file('filename')->store('public/gallery');
+
+            $image = Input::file('filename');
+            $filename  = time() . '.' . $image->getClientOriginalExtension();
+            $path = public_path('storage/gallery/new/' . $filename);
+            Image::make($image->getRealPath())->resize(427, 320)->save($path);
+
+//            $request->file('filename')->store('public/gallery');
             Photos::create(
                 $request->except('filename') +
-                ['filename' => $request->file('filename')->hashName()]
+                ['filename' => $filename]
             );
             return redirect(route('gallery.index'));
         }
+        else redirect(route('home'));
     }
 
     /**
@@ -54,9 +69,12 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $numer)
     {
-        //
+
+        $photo = Photos::find($id);
+
+        return view('galleries.one_photo', compact('photo'), compact('numer'));
     }
 
     /**

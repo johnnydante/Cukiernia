@@ -24,7 +24,8 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'ilosc' => 'required|min:1'
+            'ilosc' => 'required|min:1',
+            'termin' => 'required'
         ];
     }
 }

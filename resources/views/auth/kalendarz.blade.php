@@ -41,29 +41,96 @@
        {!! Form::close() !!}
       </div>
 
-         <div class="row" style="position: relative; z-index: 10;">
-          @if($wybik = count($_POST['terminyBezZamowien'])>0)
-           Terminy niedostępne z powodu zbyt dużej ilości zamówień:
-          <br>
-           @foreach($_POST['terminyBezZamowien'] as $termin)
-            {{$termin}},
-           @endforeach
-          @endif
+         @if($wybik = count($_POST['terminyBezZamowien'])>0)
+            <div class='calendar' style="z-index: 25; margin-top: 20px;"></div>
+         @endif
 
-           @if($wybik = count($_POST['wykluczone'])>0)
-            <br>Terminy wykluczone przez Ciebie:
-            <br>
-            @foreach($_POST['wykluczone'] as $termin)
-             {{$termin}},
-            @endforeach
-           @endif
-         </div>
-
-         <div id='calendar' style="z-index: 25;"></div>
 
      </div>
     </div>
    </div>
   </div>
  </section>
+@endsection
+
+@section('scripts')
+
+    <script>
+
+        var terminy = <?php echo json_encode($_POST['wykluczone']) ?>;
+        var terminy2 = <?php echo json_encode($_POST['terminyBezZamowien']) ?>;
+        var rodzaj = <?php echo json_encode($_POST['rodzaj']) ?>;
+        var events = [];
+
+        var zamowienia = <?php echo json_encode($_POST['orders']) ?>;
+        var torty = <?php echo json_encode($_POST['torts']) ?>;
+        var ilosc = <?php echo json_encode($_POST['ilosc']) ?>;
+
+
+        for (var i=0; i < terminy2.length; i++) {
+
+            events.push({
+                title: '- Max -',
+                start: terminy2[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < terminy.length; i++) {
+
+            events.push({
+                title: 'Wykluczony',
+                start: terminy[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < zamowienia.length; i++) {
+
+            events.push({
+                title: ilosc[i]+' x '+rodzaj[i],
+                start: zamowienia[i]
+            })
+        }
+
+        for (var i=0; i < torty.length; i++) {
+
+            events.push({
+                title: '1 x Tort',
+                start: torty[i]
+            })
+        }
+
+        $(function() {
+
+            // page is now ready, initialize the calendar...
+
+            $('.calendar').fullCalendar({
+                // put your options and callbacks here
+
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'prevYear nextYear'
+                },
+                buttonText: {
+                    today: 'dziś'
+                },
+                themeSystem: 'bootstrap4',
+                selectable: true,
+                eventLimit: 3,
+                weekNumberCalculation: 'ISO',
+                fixedWeekCount: false,
+                dayNamesShort: ['Nd', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb'],
+                monthNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+
+                events: events
+
+            });
+
+        });
+    </script>
+
 @endsection
