@@ -39,25 +39,27 @@
                                 {!! Form::textarea('description', $products->description, ['class' => 'form-control']) !!}
                             </div>
 
+{{--
 
                                 <span style=" color: black;">
                                     Jeżeli nie chcesz zmieniać zdjęcia, to nie musisz dodawać żadnego nowego.</span><br><br>
 
-                                <div class="col-lg-4 col-md-3 col-sm-6 portfolio-item">
-                                    <div class="card h-100">
-                                        Aktualne zdjęcie:
-                                        <img class="card-img-top" src='{{url("/storage/products_img/".$products->filename)}}' alt="">
-                                    </div>
-                                    <div class="intro-button mx-auto" style="margin-top: 5px;">
-                                        <a class="btn btn-danger btn-x2" href="{{route('tort_zdjecie.delete', ['id' => $products->id])}}">Usuń zdjęcie</a>
-                                    </div>
+                            <div class="col-lg-4 col-md-3 col-sm-6 portfolio-item">
+                                <div class="card h-100">
+                                    Aktualne zdjęcie:
+                                    <img class="card-img-top" src='{{url("/storage/products_img/".$products->filename)}}' alt="">
                                 </div>
-
+                                <div class="intro-button mx-auto" style="margin-top: 5px;">
+                                    <a class="btn btn-danger btn-x2" href="{{route('tort_zdjecie.delete', ['id' => $products->id])}}">Usuń zdjęcie</a>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 {!! Form::label('filename', "Zdjęcie:") !!}
                                 {!! Form::file('filename', null, ['class' => 'form-control']) !!}
                             </div>
+--}}
+
 
                             <div class="form-group">
                                 {!! Form::submit('Zapisz', ['class' => 'btn btn-success']) !!}

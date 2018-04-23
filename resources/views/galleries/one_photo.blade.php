@@ -5,7 +5,7 @@
     <style>
         .card-img-top{
             border-radius: 36px;
-            box-shadow: 5px 5px 10px black;
+            box-shadow: 5px 5px 10px grey;
 
         }
         .card {
@@ -39,7 +39,7 @@
         <div class="intro-button mx-auto" style="margin-bottom: 13px; text-align: center;">
            {{-- <a class="btn btn-outline-warning btn-x2" href="{{route('gallery.show', ['id' => $photo->id])}}">Poprzedni</a>--}}
 
-            <a class="btn btn-primary btn-x2" href="{{route('gallery.index')}}" style="color: rgba(47,23,15,.9);">Powrót</a>
+            <a class="btn btn-primary btn-x2" href="{{ URL::previous() }}" style="color: rgba(47,23,15,.9);">Powrót</a>
 
            {{-- <a class="btn btn-outline-warning btn-x2" href="{{route('gallery.show', ['id' => $photo->id])}}">Następny</a>--}}
         </div>

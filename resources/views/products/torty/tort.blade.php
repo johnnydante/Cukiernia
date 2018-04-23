@@ -2,6 +2,17 @@
 
 @section('content')
 
+    <style>
+        .product-item-img {
+            border-radius: 50px!important;
+
+        }
+        .bg-faded {
+            border-radius: 20px!important;
+        }
+
+    </style>
+
     <section class="page-section">
         <div class="container">
             <div class="product-item">
@@ -12,7 +23,7 @@
                         </h2>
                     </div>
                 </div>
-                <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" style=" box-shadow: 5px 5px 10px black;" src="{{url("/storage/products_img/".$torts->filename)}}" alt="">
+                <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{{url("/storage/products_img/".$torts->filename)}}" alt="">
                 <div class="product-item-description d-flex ml-auto">
                     <div class="bg-faded p-5 rounded">
                         <p class="mb-0">{{ $torts->opis }}</p><br>
@@ -23,7 +34,7 @@
                         </div><br>
                             Lub przejdź do zamówień weselnych, gdzie poza tortem możesz zamówić również ciasta na salę, paczki dla gości, itp<br><br>
                             <div class="intro-button mx-auto">
-                                <a class="btn btn-success btn-x2" href="#">Zamówienie weselne</a>
+                                <a class="btn btn-success btn-x2" href="{{route('wesele.index')}}">Zamówienie weselne</a>
                             </div>
                         @else
                             <div class="intro-button mx-auto">

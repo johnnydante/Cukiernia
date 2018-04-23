@@ -36,7 +36,7 @@
                     @if (Auth::user()->isAdmin())
                         <div class="intro-button mx-auto" style="margin-top: 1px;">
                             <a class="btn btn-info btn-x2" href="{{route('torty.edit',['id'=>$tort->id])}}">Edytuj</a>
-                            <a class="btn btn-danger btn-x2" href="{{route('tort.usun',['id'=>$tort->id])}}">Usuń</a>
+                            <a onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?')" class="btn btn-danger btn-x2" href="{{route('tort.usun',['id'=>$tort->id])}}">Usuń</a>
                         </div>
                     @endif
                     @endauth

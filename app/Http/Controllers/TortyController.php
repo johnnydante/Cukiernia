@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ZamowTortRequest;
 use App\Kategorie;
-use Illuminate\Http\Request;
 use App\Tort;
 use App\Order;
 use App\Callendar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Mail;
+use App\Wesele;
+use Intervention\Image\Exception\NotReadableException;
 
 class TortyController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -28,6 +29,7 @@ class TortyController extends Controller
 
         $terminy = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
         $terminy_tortow = Tort::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
+        $terminy_wesel = Wesele::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
 
         $ilosci_brytfanek = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('ilosc');
         $_POST['orders'] = $terminy;
@@ -90,13 +92,14 @@ class TortyController extends Controller
         $values = array_values($tablica_przekroczen);
         $_POST['terminyBezZamowien'] = $values;
 
+        $_POST['terminyBezZamowienWesel'] = collect($terminy_wesel)->toArray();
 
-        $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien']);
+        $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien'], $_POST['terminyBezZamowienWesel']);
 
         $dodane_terminy = Callendar::all()->pluck('termin_wykluczony');
         $dodane_terminy = collect($dodane_terminy)->toArray();
         $_POST['wykluczone'] = $dodane_terminy;
-        $_POST['tablica_terminow'] = array_merge($tablica_przekroczen, $dodane_terminy, $tablica_przekroczen_tortow);
+        $_POST['tablica_terminow'] = array_merge($tablica_przekroczen, $dodane_terminy, $tablica_przekroczen_tortow, $_POST['terminyBezZamowienWesel']);
 
         $products = Kategorie::find($id);
         return view ('products.torty.order', compact('products'));
@@ -110,6 +113,7 @@ class TortyController extends Controller
 
         $terminy = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
         $terminy_tortow = Tort::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
+        $terminy_wesel = Wesele::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
 
         $ilosci_brytfanek = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('ilosc');
         $_POST['orders'] = $terminy;
@@ -172,13 +176,14 @@ class TortyController extends Controller
         $values = array_values($tablica_przekroczen);
         $_POST['terminyBezZamowien'] = $values;
 
+        $_POST['terminyBezZamowienWesel'] = collect($terminy_wesel)->toArray();
 
-        $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien']);
+        $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien'], $_POST['terminyBezZamowienWesel']);
 
         $dodane_terminy = Callendar::all()->pluck('termin_wykluczony');
         $dodane_terminy = collect($dodane_terminy)->toArray();
         $_POST['wykluczone'] = $dodane_terminy;
-        $_POST['tablica_terminow'] = array_merge($tablica_przekroczen, $dodane_terminy, $tablica_przekroczen_tortow);
+        $_POST['tablica_terminow'] = array_merge($tablica_przekroczen, $dodane_terminy, $tablica_przekroczen_tortow, $_POST['terminyBezZamowienWesel']);
 
         $tort = Tort::find($id);
 
@@ -210,9 +215,16 @@ class TortyController extends Controller
             $image = Input::file('filename');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $path = public_path('storage/products_img/' . $filename);
-            Image::make($image->getRealPath())->resize(450, 320)->save($path);
+            try
+            {
+                Image::make($image->getRealPath())->resize(450, 320)->save($path);
+            }
+            catch(NotReadableException $e)
+            {
 
-
+                return redirect()->back();
+            }
+            $_POST['blad_zdjecia'] = '';
         Tort::create($request->except('filename') + ['users_id' => $users_id, 'id_kategorii' => $id, 'status' => 'koszyk', 'filename' => $filename]);
         return redirect(route('koszyk.index'));
         } else {
@@ -231,9 +243,16 @@ class TortyController extends Controller
 
     public function destroy_zdjecie($id)
     {
-        if(Tort::find($id)->getUser() == Auth::user() || Auth::user()->isAdmin()) {
+        if(Tort::find($id)->getUser() == Auth::user()) {
             Tort::find($id)->update(array('filename' => null));
             return redirect()->back();
+        }
+    }
+
+    public function destroyCena($id) {
+        if(Auth::user()->isAdmin()) {
+            Tort::find($id)->update(['cena' => null]);
+            return redirect(route('order.index'));
         }
     }
 

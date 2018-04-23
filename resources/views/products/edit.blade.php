@@ -38,7 +38,7 @@
                                 {!! Form::textarea('description', $products->description, ['class' => 'form-control']) !!}
                             </div>
 
-
+{{--
                                 <span style=" color: black;">
                                     Jeżeli nie chcesz zmieniać zdjęcia, to nie musisz dodawać żadnego nowego.</span><br><br>
 
@@ -56,6 +56,8 @@
                                 {!! Form::label('filename', "Zdjęcie:") !!}
                                 {!! Form::file('filename', null, ['class' => 'form-control']) !!}
                             </div>
+                            --}}
+
 
                             <div class="form-group">
                                 {!! Form::submit('Zapisz', ['class' => 'btn btn-success']) !!}

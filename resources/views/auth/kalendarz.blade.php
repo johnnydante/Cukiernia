@@ -64,6 +64,7 @@
 
         var zamowienia = <?php echo json_encode($_POST['orders']) ?>;
         var torty = <?php echo json_encode($_POST['torts']) ?>;
+        var wesela = <?php echo json_encode($_POST['weseles']) ?>;
         var ilosc = <?php echo json_encode($_POST['ilosc']) ?>;
 
 
@@ -100,6 +101,14 @@
             events.push({
                 title: '1 x Tort',
                 start: torty[i]
+            })
+        }
+
+        for (var i=0; i < wesela.length; i++) {
+
+            events.push({
+                title: '1 x Wesele',
+                start: wesela[i]
             })
         }
 

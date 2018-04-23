@@ -209,3 +209,45 @@ Route::post('tort/cena/{id}', 'OrderController@tortNadajCene')
 
 Route::get('galeria/{id}/{numer}', 'GalleryController@show')
     ->name('gallery.show');
+
+Route::get('wesele', 'WeseleController@index')
+    ->name('wesele.index');
+
+Route::get('wesele/zamowienie', 'WeseleController@zamowienie')
+    ->name('wesele.zamowienie');
+
+Route::post('wesele/zamowienie', 'WeseleController@store')
+    ->name('wesele.store');
+
+Route::post('wesele/zamow_wesele/{id}', 'WeseleController@zamowStore')
+    ->name('zamowWesele.store');
+
+Route::get('wesele/zamowienie/edytuj/{id}', 'WeseleController@edit')
+    ->name('zamowWesele.edit');
+
+Route::post('wesele/zamowienie/edytuj/{id}', 'WeseleController@update')
+    ->name('zamowWesele.update');
+
+Route::get('wesele_zdjecie/delete/{id}', 'WeseleController@destroy_zdjecie')
+    ->name('wesele_zdjecie.delete');
+
+Route::get('wesele/delete/{id}', 'WeseleController@destroy')
+    ->name('wesele.delete');
+
+Route::post('wesele/cena/{id}', 'WeseleController@nadajCene')
+    ->name('wesele.nadajCene');
+
+Route::get('wesele/update/realizacja/{id}', 'WeseleController@updateDoRealizacji')
+    ->name('wesele.updateDoRealizacji');
+
+Route::get('wesele/update/zrealizowane/{id}', 'WeseleController@updateZrealizowane')
+    ->name('wesele.updateZrealizowane');
+
+Route::get('wesele/delete_wstepne/{id}', 'WeseleController@destroyWstepne')
+    ->name('wesele.deleteWstepne');
+
+Route::get('cena/delete/{id}', 'WeseleController@destroyCena')
+    ->name('cena.delete');
+
+Route::get('cenaTortu/delete/{id}', 'TortyController@destroyCena')
+    ->name('cenaTortu.delete');

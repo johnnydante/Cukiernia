@@ -7,7 +7,7 @@ use App\Http\Requests\CallendarRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Order;
 use Illuminate\Support\Facades\Input;
-use App\Product;
+use App\Wesele;
 use App\Tort;
 
 class KalendarzController extends Controller
@@ -27,11 +27,14 @@ class KalendarzController extends Controller
 
             $terminy = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
             $terminy_tortow = Tort::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
+            $terminy_wesel = Wesele::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
 
             $ilosci_brytfanek = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('ilosc');
             $_POST['orders'] = $terminy;
             $_POST['torts'] = $terminy_tortow;
+            $_POST['weseles'] = $terminy_wesel;
             $_POST['ilosc'] = $ilosci_brytfanek;
+
 
             $tablica_przekroczen_tortow = [0];
             for($a=0; $a<$terminy_tortow->count(); $a++)
@@ -89,8 +92,9 @@ class KalendarzController extends Controller
             $values = array_values($tablica_przekroczen);
             $_POST['terminyBezZamowien'] = $values;
 
+            $_POST['terminyBezZamowienWesel'] = collect($terminy_wesel)->toArray();
 
-            $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien']);
+            $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien'], $_POST['terminyBezZamowienWesel']);
 
             $dodane_terminy = Callendar::all()->pluck('termin_wykluczony');
             $dodane_terminy = collect($dodane_terminy)->toArray();

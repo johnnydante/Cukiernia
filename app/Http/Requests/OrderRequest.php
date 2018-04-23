@@ -28,4 +28,14 @@ class OrderRequest extends FormRequest
             'termin' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'ilosc.required' => 'Ilość jest wymagana!',
+            'ilosc.min' => 'Minimalna ilość to 1!',
+            'termin.required' => 'Termin jest wymagany!',
+
+        ];
+    }
 }

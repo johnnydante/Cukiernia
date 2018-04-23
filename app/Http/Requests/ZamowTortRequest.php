@@ -25,7 +25,17 @@ class ZamowTortRequest extends FormRequest
     {
         return [
             'na_ile_osob' => 'required|min:1',
-            'termin' => 'required'
+            'termin' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'na_ile_osob.required' => 'Ilość osób jest wymagana!',
+            'na_ile_osob.min' => 'Minimalna ilość osób to 1!',
+            'termin.required' => 'Termin jest wymagany!',
+
         ];
     }
 }

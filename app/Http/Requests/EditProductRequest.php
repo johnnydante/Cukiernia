@@ -47,14 +47,21 @@ class EditProductRequest extends FormRequest
         return [
             'nazwa' => 'required|max:60',
             'cena' => 'required',
-            'description' => 'required|min:50|minwords:10',
+            'cena_mala' => 'required',
+            'description' => 'required|min:100|minwords:15',
 //            'filename' =>'required|mimes:jpg,jpeg|dimensions:min_width=900,min_height=600,max_width:1200,max_height=960',
         ];
     }
     public function messages()
     {
         return [
-            '*.required' => 'To pole jest wymagane do uzupełnienia :attribute'
+            'nazwa.required' => 'Nazwa jest wymagana!',
+            'cena.required' => 'Pierwsza cena jest wymagana!',
+            'cena_mala.required' => 'Druga cena jest wymagana!',
+            'nazwa.max' => 'Nazwa może mieć maksymalnie 60 znaków!',
+            'description.required' => 'Opis jest wymagany!',
+            'description.min' => 'Opis musi się składać przynajmniej z 100 znaków!',
+            'description.minwords' => 'Opis musi się składać przynajmniej z 15 słów!',
         ];
     }
 }

@@ -17,8 +17,7 @@ class UsersController extends Controller
     {
         if(Auth::user()->isAdmin())
         {
-            $_POST['koszt'] = 0;
-            $_POST['koszt_tortow'] = 0;
+
             $users = User::orderBy('id')->paginate(50);
             return view('auth.uzytkownicy', compact('users'));
         }
