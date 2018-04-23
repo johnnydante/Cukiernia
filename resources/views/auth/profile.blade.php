@@ -9,16 +9,16 @@
 
                             <div class="intro-button mx-auto" style="position: absolute; top: 50px; right: 50px;">
                                 <a class="btn btn-outline-primary btn-x2" href="{{route('zamowienia.show')}}">Moje zamówienia
-                                    @if( (Auth::user()->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count() >0) || Auth::user()->getTort()->whereIn('status', ['oczekuje', 'w realizacji'])->count() >0 )
-                                        ({{ Auth::user()->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count()+ Auth::user()->getTort()->whereIn('status', ['oczekuje', 'w realizacji'])->count() }})
+                                    @if( (Auth::user()->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count() >0) || Auth::user()->getTort()->whereIn('status', ['oczekuje', 'w realizacji'])->count() >0 || Auth::user()->getWesele()->whereIn('status', ['oczekuje', 'w realizacji'])->count() >0)
+                                        ({{ Auth::user()->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count()+ Auth::user()->getTort()->whereIn('status', ['oczekuje', 'w realizacji'])->count() + Auth::user()->getWesele()->whereIn('status', ['oczekuje', 'w realizacji'])->count()}})
                                     @endif
                                 </a>
                             </div>
 
                             <div class="intro-button mx-auto" style="position: absolute; top: 110px; right: 50px; z-index: 10;">
                                 <a class="btn btn-outline-success btn-x2" href="{{route('koszyk.index')}}">Koszyk <i class="fas fa-cart-arrow-down"></i>
-                                    @if( (Auth::user()->getOrder()->where('status', 'koszyk')->count() >0) || Auth::user()->getTort()->where('status', 'koszyk')->count() >0 )
-                                        ({{ Auth::user()->getOrder()->where('status', 'koszyk')->count()+ Auth::user()->getTort()->where('status', 'koszyk')->count() }})
+                                    @if( (Auth::user()->getOrder()->where('status', 'koszyk')->count() >0) || Auth::user()->getTort()->where('status', 'koszyk')->count() >0 || Auth::user()->getWesele()->where('status', 'koszyk')->count() >0)
+                                        ({{ Auth::user()->getOrder()->where('status', 'koszyk')->count()+ Auth::user()->getTort()->where('status', 'koszyk')->count() +  Auth::user()->getWesele()->where('status', 'koszyk')->count()}})
                                     @endif
                                 </a>
                             </div>
@@ -42,7 +42,7 @@
                                     <a class="btn btn-info btn-x2" href="{{route('password.change',[Auth::user()->id])}}">Zmień hasło</a>
                                 </div>
                                 <div class="intro-button mx-auto" style="">
-                                    <a class="btn btn-danger btn-x2" href="{{route('user.delete',[Auth::user()->id])}}">Usuń profil</a>
+                                    <a onclick="return confirm('Czy na pewno chcesz usunąć swój profil?')" class="btn btn-danger btn-x2" href="{{route('user.delete',[Auth::user()->id])}}">Usuń profil</a>
                                 </div>
                             </div>
                         </div>
@@ -52,3 +52,5 @@
         </div>
     </section>
 @endsection
+
+

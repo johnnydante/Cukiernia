@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Callendar;
 use App\Tort;
 use App\Http\Requests\TortDoRealizacjiRequest;
+use App\Wesele;
 
 class OrderController extends Controller
 {
@@ -23,10 +24,13 @@ class OrderController extends Controller
     {
         if(Auth::user()->isAdmin())
         {
-
+            Wesele::where('status', 'brak')->delete();
             $orders = Order::orderBy('termin')->paginate(1000);
             $torty = Tort::orderBy('termin')->paginate(1000);
-            return view('auth.zamowienia', compact('orders'), compact('torty'));
+            $wesela = Wesele::orderBy('termin')->paginate(1000);
+
+
+            return view('auth.zamowienia', compact(['orders', 'torty', 'wesela']));
         }
         else redirect(route('home'));
     }
@@ -38,7 +42,8 @@ class OrderController extends Controller
 
             $orders = Order::orderBy('termin')->paginate(1000);
             $torty = Tort::orderBy('termin')->paginate(1000);
-            return view('auth.wTrakcie', compact('orders'), compact('torty'));
+            $wesela = Wesele::orderBy('termin')->paginate(1000);
+            return view('auth.wTrakcie', compact(['orders', 'torty', 'wesela']));
         }
         else redirect(route('home'));
     }
@@ -48,9 +53,10 @@ class OrderController extends Controller
         if(Auth::user()->isAdmin())
         {
 
-            $orders = Order::orderBy('termin')->paginate(1000000000);
-            $torty = Tort::orderBy('termin')->paginate(10000000);
-            return view('auth.zrealizowane', compact('orders'), compact('torty'));
+            $orders = Order::orderBy('termin', 'DESC')->paginate(1000000000);
+            $torty = Tort::orderBy('termin', 'DESC')->paginate(10000000);
+            $wesela = Wesele::orderBy('termin', 'DESC')->paginate(1000);
+            return view('auth.zrealizowane', compact(['orders', 'torty', 'wesela']));
         }
         else redirect(route('home'));
     }
@@ -84,6 +90,7 @@ class OrderController extends Controller
 
         $terminy = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
         $terminy_tortow = Tort::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
+        $terminy_wesel = Wesele::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
 
         $ilosci_brytfanek = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('ilosc');
         $_POST['orders'] = $terminy;
@@ -146,13 +153,14 @@ class OrderController extends Controller
         $values = array_values($tablica_przekroczen);
         $_POST['terminyBezZamowien'] = $values;
 
+        $_POST['terminyBezZamowienWesel'] = collect($terminy_wesel)->toArray();
 
-        $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien']);
+        $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien'], $_POST['terminyBezZamowienWesel']);
 
         $dodane_terminy = Callendar::all()->pluck('termin_wykluczony');
         $dodane_terminy = collect($dodane_terminy)->toArray();
         $_POST['wykluczone'] = $dodane_terminy;
-        $_POST['tablica_terminow'] = array_merge($tablica_przekroczen, $dodane_terminy, $tablica_przekroczen_tortow);
+        $_POST['tablica_terminow'] = array_merge($tablica_przekroczen, $dodane_terminy, $tablica_przekroczen_tortow, $_POST['terminyBezZamowienWesel']);
 
         $products = Product::find($id);
         return view ('zamowienia.order', compact('products'));
@@ -166,6 +174,7 @@ class OrderController extends Controller
 
         $terminy = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
         $terminy_tortow = Tort::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
+        $terminy_wesel = Wesele::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
 
         $ilosci_brytfanek = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('ilosc');
         $_POST['orders'] = $terminy;
@@ -228,13 +237,14 @@ class OrderController extends Controller
         $values = array_values($tablica_przekroczen);
         $_POST['terminyBezZamowien'] = $values;
 
+        $_POST['terminyBezZamowienWesel'] = collect($terminy_wesel)->toArray();
 
-        $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien']);
+        $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien'], $_POST['terminyBezZamowienWesel']);
 
         $dodane_terminy = Callendar::all()->pluck('termin_wykluczony');
         $dodane_terminy = collect($dodane_terminy)->toArray();
         $_POST['wykluczone'] = $dodane_terminy;
-        $_POST['tablica_terminow'] = array_merge($tablica_przekroczen, $dodane_terminy, $tablica_przekroczen_tortow);
+        $_POST['tablica_terminow'] = array_merge($tablica_przekroczen, $dodane_terminy, $tablica_przekroczen_tortow, $_POST['terminyBezZamowienWesel']);
 
         $order = Order::where('id', $id)->first();
         return view('zamowienia.editOrder', compact('order'));

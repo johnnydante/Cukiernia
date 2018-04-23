@@ -123,16 +123,16 @@
 
 </h1>
 @guest
-    <li><a class="btn btn-outline-warning btn-x2" style="position: absolute; top: 30px; right: 40px; z-index: 10;" href="{{ route('login') }}">{{ __('Logowanie') }}</a></li>
-    <li><a class="btn btn-outline-warning btn-x2" style="position: absolute; top: 80px; right: 40px; z-index: 10;" href="{{ route('register') }}">{{ __('Rejestracja') }}</a></li>
+    <li><a class="btn btn-outline-warning btn-x2" style="position: absolute; top: 20px; right: 20px; z-index: 10;" href="{{ route('login') }}">{{ __('Logowanie') }}</a></li>
+    <li><a class="btn btn-outline-warning btn-x2" style="position: absolute; top: 20px; right: 140px; z-index: 10;" href="{{ route('register') }}">{{ __('Rejestracja') }}</a></li>
 
 @else
 
 
-        <a class="btn btn-outline-warning btn-x2" style="position: fixed; top: 30px; right: 40px; z-index: 10;"
+        <a class="btn btn-outline-warning btn-x2" style="position: absolute; top: 10px; right: 10px; z-index: 10;"
            href="{{ route('profile.index') }}">Mój profil</a>
 
-    <a class="btn btn-outline-danger btn-x2" style="position: fixed; top: 80px; right: 40px; z-index: 10;" href="{{ route('logout') }}"
+    <a class="btn btn-outline-danger btn-x2" style="position: absolute; top: 63px; right: 80px; z-index: 10;" href="{{ route('logout') }}"
         onclick="event.preventDefault();
         document.getElementById('logout-form').submit();">
     {{ __('Wyloguj') }}
@@ -141,11 +141,11 @@
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
              @csrf
         </form>
-    <div class="intro-button mx-auto" style="position: fixed; top: 30px; right: 170px; z-index: 10;">
+    <div class="intro-button mx-auto" style="position: absolute; top: 10px; right: 130px; z-index: 10;">
         <a class="btn btn-outline-success btn-x2" href="{{route('koszyk.index')}}">Koszyk <i class="fas fa-cart-arrow-down"></i>
 
-            @if( (Auth::user()->getOrder()->where('status', 'koszyk')->count() >0) || Auth::user()->getTort()->where('status', 'koszyk')->count() >0 )
-                ({{ Auth::user()->getOrder()->where('status', 'koszyk')->count()+ Auth::user()->getTort()->where('status', 'koszyk')->count() }})
+            @if( (Auth::user()->getOrder()->where('status', 'koszyk')->count() >0) || Auth::user()->getTort()->where('status', 'koszyk')->count() >0 || Auth::user()->getWesele()->where('status', 'koszyk')->count() >0)
+                ({{ Auth::user()->getOrder()->where('status', 'koszyk')->count()+ Auth::user()->getTort()->where('status', 'koszyk')->count() + Auth::user()->getWesele()->where('status', 'koszyk')->count() }})
             @endif
 
         </a>
@@ -165,17 +165,23 @@
                     <li class="nav-item px-lg-4 {{ (request()->routeIs(['home','register'])) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('home')}}">Strona główna</a>
                     </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs('about.index')) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('about.index')}}">O nas</a>
-                    </li>
+
+
                     <li class="nav-item px-lg-4 {{ (request()->routeIs(['products.index', 'tort.show', 'product.index', 'torty.index', 'ciasteczka.index', 'ciasteczko.index', 'productsGlowna.index'])) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('productsGlowna.index')}}">Produkty</a>
                     </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs('contact.index', 'contact.postContact')) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('contact.index')}}">Kontakt</a>
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['wesele.index'])) ? 'active': ''}}">
+                        <a class="nav-link text-uppercase text-expanded" href="{{route('wesele.index')}}">Słodkie wesela</a>
+                    </li>
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs('about.index')) ? 'active': ''}}">
+                        <a class="nav-link text-uppercase text-expanded" href="{{route('about.index')}}">O nas</a>
                     </li>
                     <li class="nav-item px-lg-4 {{ (request()->routeIs(['gallery.index', 'gallery.show', 'gallery.create'])) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('gallery.index')}}">Galeria tortów</a>
+                    </li>
+
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs('contact.index', 'contact.postContact')) ? 'active': ''}}">
+                        <a class="nav-link text-uppercase text-expanded" href="{{route('contact.index')}}">Kontakt</a>
                     </li>
                 </ul>
             </div>
@@ -215,17 +221,23 @@
                     <li class="nav-item px-lg-4 {{ (request()->routeIs(['home','register'])) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('home')}}">Strona główna</a>
                     </li>
+
+
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['products.index','product.index', 'tort.show', 'torty.index', 'ciasteczka.index', 'ciasteczko.index', 'productsGlowna.index'])) ? 'active': ''}}">
+                        <a class="nav-link text-uppercase text-expanded" href="{{route('productsGlowna.index')}}">Produkty</a>
+                    </li>
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['wesele.index'])) ? 'active': ''}}">
+                        <a class="nav-link text-uppercase text-expanded" href="{{route('wesele.index')}}">Słodkie wesela</a>
+                    </li>
                     <li class="nav-item px-lg-4 {{ (request()->routeIs('about.index')) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('about.index')}}">O nas</a>
                     </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['products.index','product.index', 'torty.index', 'ciasteczka.index', 'ciasteczko.index', 'productsGlowna.index'])) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('productsGlowna.index')}}">Produkty</a>
+
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['gallery.index', 'gallery.create', 'gallery.show'])) ? 'active': ''}}">
+                        <a class="nav-link text-uppercase text-expanded" href="{{route('gallery.index')}}">Galeria tortów</a>
                     </li>
                     <li class="nav-item px-lg-4 {{ (request()->routeIs('contact.index', 'contact.postContact')) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('contact.index')}}">Kontakt</a>
-                    </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['gallery.index', 'gallery.create', 'gallery.show'])) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('gallery.index')}}">Galeria tortów</a>
                     </li>
                 </ul>
             </div>

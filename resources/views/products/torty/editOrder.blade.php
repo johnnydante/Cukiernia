@@ -48,13 +48,16 @@
                                 </div>
 
                                 <div class="form-group">
+                                    {!! Form::label('smak', "Smak Tortu:") !!}
+                                    {!! Form::select('smak',  ['waniliowy', 'orzechowy', 'czekoladowy', 'owocowy(dodaj w opisie jaki)']) !!}
+                                </div>
+
+                                <div class="form-group">
                                     {!! Form::label('rodzaj_dekoracji', "Rodzaj dekoracji:") !!}
                                     {!! Form::select('rodzaj_dekoracji', ['tradycyjny', 'zdjęcie na opłatku', 'kształt z masy cukrowej', 'inny(dodaj w opisie)']) !!}
                                 </div>
 
-                                @if($tort->filename != '')
-                                    <span style=" color: black;">
-                                    Jeżeli nie chcesz zmieniać zdjęcia, to nie musisz dodawać żadnego nowego.</span><br><br>
+                                @if($tort->filename != null)
 
                                     <div class="col-lg-4 col-md-3 col-sm-6 portfolio-item">
                                             <div class="card h-100">
@@ -65,12 +68,13 @@
                                             <a class="btn btn-danger btn-x2" href="{{route('tort_zdjecie.delete', ['id' => $tort->id])}}">Usuń zdjęcie</a>
                                         </div>
                                     </div>
-                                @endif
+                                @else
 
                                 <div class="form-group">
                                     {!! Form::label('filename', "Zdjęcie:") !!}
                                     {!! Form::file('filename', null, ['class' => 'form-control']) !!}
                                 </div>
+                                @endif
 
                                 <div class="form-group">
                                     {!! Form::label('info', "Dodatkowy opis:") !!}

@@ -1,7 +1,15 @@
 @extends('layout')
 
 @section('content')
+    <style>
+        .img-fluid {
+            border-radius: 50px!important;
+        }
+        .bg-faded {
+            border-radius: 20px!important;
+        }
 
+    </style>
 
     <section class="page-section about-heading">
         <div class="container">
@@ -14,8 +22,8 @@
                                 <span class="section-heading-upper">słodkie domowe receptury</span>
                                 <span class="section-heading-lower">Poznaj naszą pasję</span>
                             </h2>
-                            <p>Founded in 1987 by the Hernandez brothers, our establishment has been serving up rich coffee sourced from artisan farmers in various regions of South and Central America. We are dedicated to travelling the world, finding the best coffee, and bringing back to you here in our cafe.</p>
-                            <p class="mb-0">We guarantee that you will fall in <em>lust</em> with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.</p>
+                            <p>Pieczenie tortów, ciast i różnorodnych słodkości stało się naszą pasją wiele lat temu, kiedy to najbliżsi przyjaciele po raz pierwszy próbowali naszych drobnych domowych wypieków i jak zawsze po takich degustacjach bez wyjątku prosili o więcej. Wtedy zrozumieliśmy, że trzeba to robić dla wszytkich!</p>
+                            <p class="mb-0">Ostatnie lata pracy przy pieczeniu i dekorowaniu tortów można nazwać już tylko i wyłącznie doskonaleniem kunsztu. Dzięki opini naszych klientów, której zawsze oczekujemuy o realizacji zamówienia, stale doskonalimy receptury smakowe i konsystencjonalne, dlatego możemy Ci zapewnić gwarancję jakości, smaku i przede wszystkim pełni naturalnych składników, ponieważ nasze produkty są robiony tylko na najzdrowszych i naturalnych składnikach, a właśnie może to jest ich sekret <i class="far fa-smile"></i></p>
                         </div>
                     </div>
                 </div>

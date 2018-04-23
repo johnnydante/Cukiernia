@@ -30,27 +30,29 @@
             <td>{{$user->email}}</td>
             <td>{{$user->tel}}</td>
             <td style="text-align: center;">
-             @if($user->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count()>0 || $user->getTort()->whereIn('status', ['oczekuje', 'w realizacji'])->count()>0)
-               <b>{{$user->getOrder()->where('status', 'oczekuje')->count()+$user->getTort()->where('status', 'oczekuje')->count()}}</b> oczekujące<br>
-               <b>{{$user->getOrder()->where('status', 'w realizacji')->count()+$user->getTort()->where('status', 'w realizacji')->count()}}</b> w realizacji
-              @elseif($user->getOrder()->where('status', 'koszyk')->count()>0 || $user->getTort()->where('status', 'koszyk')->count()>0)
-              <b>{{$user->getOrder()->where('status', 'koszyk')->count()+$user->getTort()->where('status', 'koszyk')->count()}}</b> w koszyku<br>
+             @if($user->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count()>0 || $user->getTort()->whereIn('status', ['oczekuje', 'w realizacji'])->count()>0 || $user->getWesele()->whereIn('status', ['oczekuje', 'w realizacji'])->count()>0)
+               <b>{{$user->getOrder()->where('status', 'oczekuje')->count()+$user->getTort()->where('status', 'oczekuje')->count() +$user->getWesele()->where('status', 'oczekuje')->count()}}</b> oczekujące<br>
+               <b>{{$user->getOrder()->where('status', 'w realizacji')->count()+$user->getTort()->where('status', 'w realizacji')->count()+$user->getWesele()->where('status', 'w realizacji')->count()}}</b> w realizacji
+              @elseif($user->getOrder()->where('status', 'koszyk')->count()>0 || $user->getTort()->where('status', 'koszyk')->count()>0 || $user->getWesele()->where('status', 'koszyk')->count()>0)
+              <b>{{$user->getOrder()->where('status', 'koszyk')->count()+$user->getTort()->where('status', 'koszyk')->count()+$user->getWesele()->where('status', 'koszyk')->count()}}</b> w koszyku<br>
               @else
                brak
               @endif
             </td>
 
             <td style="text-align: center;">
-             @if($user->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count()>0 || $user->getTort()->whereIn('status', ['oczekuje', 'w realizacji'])->count()>0)
+             @if($user->getOrder()->whereIn('status', ['oczekuje', 'w realizacji'])->count()>0 || $user->getTort()->whereIn('status', ['oczekuje', 'w realizacji'])->count()>0 || $user->getWesele()->whereIn('status', ['oczekuje', 'w realizacji'])->count()>0)
               <?php
                     $_POST['koszt'] = $user->getOrder()->where('status', 'w realizacji')->sum('suma');
                     $_POST['koszt_tortow'] = $user->getTort()->where('status', 'w realizacji')->sum('cena');
+                    $_POST['koszt_wesel'] = $user->getWesele()->where('status', 'w realizacji')->sum('cena');
                     $_POST['koszt_oczekuje'] = $user->getOrder()->where('status', 'oczekuje')->sum('suma');
                     $_POST['koszt_tortow_oczekuje'] = $user->getTort()->where('status', 'oczekuje')->sum('cena');
+                    $_POST['koszt_wesel_oczekuje'] = $user->getWesele()->where('status', 'oczekuje')->sum('cena');
 
                     ?>
-             {{$_POST['koszt_oczekuje']+$_POST['koszt_tortow_oczekuje']}} zł<br>
-              {{$_POST['koszt']+$_POST['koszt_tortow']}} zł
+             {{$_POST['koszt_oczekuje']+$_POST['koszt_tortow_oczekuje']+$_POST['koszt_wesel_oczekuje']}} zł<br>
+              {{$_POST['koszt']+$_POST['koszt_tortow']+$_POST['koszt_wesel']}} zł
              @else
               ---
              @endif

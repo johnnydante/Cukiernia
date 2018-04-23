@@ -2,6 +2,16 @@
 
 @section('content')
 
+    <style>
+        .product-item-img {
+            border-radius: 50px!important;
+        }
+        .bg-faded {
+            border-radius: 20px!important;
+        }
+
+    </style>
+
     <section class="page-section">
         <div class="container">
             <div class="product-item">
@@ -13,7 +23,7 @@
                         </h2>
                     </div>
                 </div>
-                <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" style=" box-shadow: 5px 5px 10px black;" src="{{url("/storage/products_img/".$products->filename)}}" alt="">
+                <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0"  src="{{url("/storage/products_img/".$products->filename)}}" alt="">
                 <div class="product-item-description d-flex ml-auto">
                     <div class="bg-faded p-5 rounded">
                         <p class="mb-0">{{ $products->description }}</p><br>

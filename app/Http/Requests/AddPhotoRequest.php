@@ -31,7 +31,8 @@ class AddPhotoRequest extends FormRequest
     public function messages()
     {
         return [
-            '*.required' => 'To pole jest wymagane do uzupełnienia :attribute'
+            'filename.required' => 'Zdjęcie jest wymagane!',
+            'filename.mimes' => 'Zdjęcie musi być w formacie .jpg lub .jpeg!',
         ];
     }
 }

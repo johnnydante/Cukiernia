@@ -16,9 +16,10 @@
 
                             <div class="row">
                                 <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
+                                    <i>Ceny tortów ustalane są indywidualnie z klientem w zależności od wielkości, rodzaju dekoracji i innych dodatków</i><br><br>
                             @if($wybik = count($_POST['tablica_terminow'])>0)
                                 <span style="text-align: justify; color: black;">
-                                    <i>Ceny tortów ustalane są indywidualnie z klientem w zależności od wielkości, rodzaju dekoracji i innych dodatków</i><br><br>
+
 
                                 Z powodu zbyt dużej ilości zamówień, niektóre terminy są już niedostępne, poniżej formularza znajduje się się kalendarz terminów.
  {{--                               @foreach($_POST['tablica_terminow'] as $termin)
@@ -48,6 +49,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    {!! Form::label('smak', "Smak Tortu:") !!}
+                                    {!! Form::select('smak',  ['waniliowy', 'orzechowy', 'czekoladowy', 'owocowy(dodaj w opisie jaki)']) !!}
+                                </div>
+
+                                <div class="form-group">
                                     {!! Form::label('rodzaj_dekoracji', "Rodzaj dekoracji:") !!}
                                     {!! Form::select('rodzaj_dekoracji',  ['tradycyjny', 'zdjęcie na opłatku', 'kształt z masy cukrowej', 'inny(dodaj w opisie)']) !!}
                                 </div>
@@ -58,7 +64,7 @@ Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, 
                                     {!! Form::label('filename', "Zdjęcie:") !!}
                                     {!! Form::file('filename', null, ['class' => 'form-control']) !!}
                                 </div>
-
+                                    @yield('blad')
                                 <div class="form-group">
                                     {!! Form::label('info', "Dodatkowy opis:") !!}
                                     {!! Form::textarea('info', null, ['class' => 'form-control']) !!}
@@ -132,6 +138,7 @@ Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, 
             });
 
         });
+
     </script>
 
 @endsection

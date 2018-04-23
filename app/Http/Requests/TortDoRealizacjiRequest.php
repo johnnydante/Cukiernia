@@ -27,4 +27,12 @@ class TortDoRealizacjiRequest extends FormRequest
             'cena' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'cena.required' => 'Cena jest wymagana!',
+
+        ];
+    }
 }

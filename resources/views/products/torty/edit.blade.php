@@ -29,7 +29,7 @@
                                 {!! Form::textarea('opis', $torts->opis, ['class' => 'form-control']) !!}
                             </div>
 
-                            <span style=" color: black;">
+                           {{-- <span style=" color: black;">
                                     Jeżeli nie chcesz zmieniać zdjęcia, to nie musisz dodawać żadnego nowego.</span><br><br>
 
                             <div class="col-lg-4 col-md-3 col-sm-6 portfolio-item">
@@ -45,7 +45,7 @@
                             <div class="form-group">
                                 {!! Form::label('filename', "Zdjęcie:") !!}
                                 {!! Form::file('filename', null, ['class' => 'form-control']) !!}
-                            </div>
+                            </div>--}}
 
                             <div class="form-group">
                                 {!! Form::submit('Zapisz', ['class' => 'btn btn-primary']) !!}

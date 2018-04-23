@@ -24,7 +24,7 @@ class CallendarRequest extends FormRequest
     public function rules()
     {
         return [
-            'termin_wykluczony' => 'required'
+
         ];
     }
 }

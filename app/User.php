@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\RolesHasUsers;
 
 class User extends Authenticatable
 {
@@ -45,5 +44,10 @@ class User extends Authenticatable
     public function getTort()
     {
         return $this->hasMany('App\Tort', 'users_id', 'id');
+    }
+
+    public function getWesele()
+    {
+        return $this->hasMany('App\Wesele', 'users_id', 'id');
     }
 }

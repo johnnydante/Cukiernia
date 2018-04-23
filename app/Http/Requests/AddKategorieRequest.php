@@ -46,14 +46,20 @@ class AddKategorieRequest extends FormRequest
 
         return [
             'nazwa' => 'required|max:60',
-            'opis' => 'required|min:10|minwords:3',
+            'opis' => 'required|min:100|minwords:15',
             'filename' =>'required|mimes:jpg,jpeg'
         ];
     }
     public function messages()
     {
         return [
-            '*.required' => 'To pole jest wymagane do uzupełnienia :attribute'
+            'nazwa.required' => 'Nazwa jest wymagana!',
+            'nazwa.max' => 'Nazwa może mieć maksymalnie 60 znaków!',
+            'opis.required' => 'Opis jest wymagany!',
+            'opis.min' => 'Opis musi się składać przynajmniej z 100 znaków!',
+            'opis.minwords' => 'Opis musi się składać przynajmniej z 15 słów!',
+            'filename.required' => 'Zdjęcie jest wymagane!',
+            'filename.mimes' => 'Zdjęcie musi być w formacie .jpg lub .jpeg!',
         ];
     }
 }
