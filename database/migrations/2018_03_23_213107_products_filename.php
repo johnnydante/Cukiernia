@@ -14,7 +14,7 @@ class ProductsFilename extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-        $table->string('filename')
+        $table->string('filename', 191)
             ->after('cena')
             ->nullable();
     });

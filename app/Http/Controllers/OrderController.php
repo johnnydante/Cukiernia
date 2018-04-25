@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Product;
 use App\Http\Requests\OrderRequest;
 use App\Order;
@@ -15,55 +14,29 @@ use App\Wesele;
 class OrderController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
-        if(Auth::user()->isAdmin())
-        {
             Wesele::where('status', 'brak')->delete();
             $orders = Order::orderBy('termin')->paginate(1000);
             $torty = Tort::orderBy('termin')->paginate(1000);
             $wesela = Wesele::orderBy('termin')->paginate(1000);
-
-
             return view('auth.zamowienia', compact(['orders', 'torty', 'wesela']));
-        }
-        else redirect(route('home'));
     }
 
     public function index_wTrakcie()
     {
-        if(Auth::user()->isAdmin())
-        {
-
             $orders = Order::orderBy('termin')->paginate(1000);
             $torty = Tort::orderBy('termin')->paginate(1000);
             $wesela = Wesele::orderBy('termin')->paginate(1000);
             return view('auth.wTrakcie', compact(['orders', 'torty', 'wesela']));
-        }
-        else redirect(route('home'));
     }
 
     public function index_zrealizowane()
     {
-        if(Auth::user()->isAdmin())
-        {
-
             $orders = Order::orderBy('termin', 'DESC')->paginate(1000000000);
             $torty = Tort::orderBy('termin', 'DESC')->paginate(10000000);
             $wesela = Wesele::orderBy('termin', 'DESC')->paginate(1000);
             return view('auth.zrealizowane', compact(['orders', 'torty', 'wesela']));
-        }
-        else redirect(route('home'));
-    }
-
-    public function create()
-    {
-        //
     }
 
     public function store(OrderRequest $request, $id)
@@ -258,50 +231,34 @@ class OrderController extends Controller
 
     public function updateDoRealizacji($id)
     {
-        if(Auth::user()->isAdmin()) {
             Order::find($id)->update(array('status' => 'w realizacji'));
             return redirect(route('order.index'));
-        }
-        else redirect(route('home'));
     }
 
     public function updateTortDoRealizacji($id)
     {
-        if(Auth::user()->isAdmin()) {
-
             Tort::find($id)->update(array('status' => 'w realizacji'));
             return redirect(route('order.index'));
-        }
-        else redirect(route('home'));
     }
 
     public function tortNadajCene(TortDoRealizacjiRequest $request, $id)
     {
-        if(Auth::user()->isAdmin()) {
             $cena = 0;
             $cena = $cena + $request->cena;
             Tort::find($id)->update(['cena' => $cena]);
             return redirect(route('order.index'));
-        }
-        else redirect(route('home'));
     }
 
     public function updateZrealizowane($id)
     {
-        if(Auth::user()->isAdmin()) {
             Order::find($id)->update(['status' => 'zrealizowane']);
             return redirect(route('order.index_wTrakcie'));
-        }
-        else redirect(route('home'));
     }
 
     public function updateTortZrealizowane($id)
     {
-        if(Auth::user()->isAdmin()) {
             Tort::find($id)->update(['status' => 'zrealizowane']);
             return redirect(route('order.index_wTrakcie'));
-        }
-        else redirect(route('home'));
     }
 
     public function destroy($id)

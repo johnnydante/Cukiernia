@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Callendar;
 use App\Http\Requests\CallendarRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Order;
 use Illuminate\Support\Facades\Input;
 use App\Wesele;
@@ -12,15 +11,10 @@ use App\Tort;
 
 class KalendarzController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function index()
     {
-        if(Auth::user()->isAdmin())
-        {
+
             $rodzaj = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('rodzaj');
             $rodzaj = collect($rodzaj)->toArray();
             $_POST['rodzaj'] = $rodzaj;
@@ -102,27 +96,18 @@ class KalendarzController extends Controller
             $_POST['tablica_terminow'] = array_merge($tablica_przekroczen, $dodane_terminy, $tablica_przekroczen_tortow);
 
             return view('auth.kalendarz');
-        }
-        else redirect(route('home'));
     }
 
     public function store(CallendarRequest $request)
     {
-
-        if(Auth::user()->isAdmin()) {
             Callendar::create($request->all());
             return redirect(route('kalendarz.index'));
-        }
-        else redirect(route('home'));
     }
 
     public function destroy()
     {
         $termin_wykluczony = Input::get('termin_odznaczony');
-        if(Auth::user()->isAdmin()) {
             Callendar::where('termin_wykluczony', $termin_wykluczony)->delete();
             return redirect(route('kalendarz.index'));
-        }
-        else redirect(route('home'));
     }
 }

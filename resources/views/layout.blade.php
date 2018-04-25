@@ -286,6 +286,7 @@
 
     </script>
     <script src="{{url("/js/fullcalendar.js")}}"></script>
+
 @yield('scripts')
 
 </body>

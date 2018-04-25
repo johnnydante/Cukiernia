@@ -15,7 +15,7 @@ class CreateTotrsTable extends Migration
     {
         Schema::create('kategories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nazwa');
+            $table->string('nazwa', 91);
             $table->text('opis');
             $table->string('filename', 191);
             $table->timestamps();

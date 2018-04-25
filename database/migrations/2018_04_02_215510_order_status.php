@@ -14,7 +14,7 @@ class OrderStatus extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('status')
+            $table->string('status', 55)
                 ->after('ilosc')
                 ->nullabe();
         });

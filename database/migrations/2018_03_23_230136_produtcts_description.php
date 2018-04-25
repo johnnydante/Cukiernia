@@ -16,7 +16,7 @@ class ProdutctsDescription extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->text('description')
                 ->after('cena');
-            $table->string('filename', 60)
+            $table->string('filename', 191)
                 ->nullabe(false)
                 ->change();
         });

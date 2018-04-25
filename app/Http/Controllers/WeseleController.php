@@ -17,28 +17,22 @@ class WeseleController extends Controller
         return view('wesele.wesela');
     }
 
-    public function store(WeseleStartRequest $request) {
-
-        if(Auth::check()) {
+    public function store(WeseleStartRequest $request)
+    {
             $users_id = Auth::id();
             Wesele::create($request->all() + ['users_id' => $users_id, 'termin' => '0000-00-00', 'na_ile_osob_tort' => 0, 'rodzaj_tortu' => 'brak', 'smak' =>'brak', 'wielkosc_paczki' => 'brak', 'rodzaj_paczki' => 'brak', 'ile_paczek' => 0, 'status' => 'brak', 'cena' => null]);
             return redirect(route('wesele.zamowienie'));
-
-        } else {
-            return redirect(route('login'));
-        }
     }
 
-    public function zamowienie() {
+    public function zamowienie()
+    {
         $users_id = Auth::id();
         $wesele = Wesele::where('users_id', $users_id)->orderBy('id', 'DESC')->first();
-
         return view('wesele.weseleZamowienie', compact('wesele'));
     }
 
-    public function zamowStore(WeseleZamowRequest $request, $id) {
-
-        if(Auth::check()) {
+    public function zamowStore(WeseleZamowRequest $request, $id)
+    {
             if(Input::file('filename')) {
                 $image = Input::file('filename');
                 $filename = time() . '.' . $image->getClientOriginalExtension();
@@ -51,9 +45,6 @@ class WeseleController extends Controller
                 Wesele::find($id)->update($request->all()+ ['status' => 'koszyk']);
                 return redirect(route('koszyk.index'));
             }
-        } else {
-            return redirect(route('login'));
-        }
     }
 
     public function destroy_zdjecie($id)
@@ -100,47 +91,36 @@ class WeseleController extends Controller
 
     public function nadajCene(WeseleDoRealizacjiRequest $request, $id)
     {
-        if(Auth::user()->isAdmin()) {
             $cena = 0;
             $cena = $cena + $request->cena;
             Wesele::find($id)->update(['cena' => $cena]);
             return redirect(route('order.index'));
-        }
-        else redirect(route('home'));
     }
 
     public function updateDoRealizacji($id)
     {
-        if(Auth::user()->isAdmin()) {
-
             Wesele::find($id)->update(array('status' => 'w realizacji'));
             return redirect(route('order.index'));
-        }
-        else redirect(route('home'));
     }
 
     public function updateZrealizowane($id)
     {
-        if(Auth::user()->isAdmin()) {
-
             Wesele::find($id)->update(array('status' => 'zrealizowane'));
             return redirect(route('order.index'));
-        }
-        else redirect(route('home'));
     }
 
-    public function destroyWstepne($id) {
+    public function destroyWstepne($id)
+    {
         if(Wesele::find($id)->getUser() == Auth::user()) {
             Wesele::find($id)->delete();
             return redirect(route('wesele.index'));
         }
     }
 
-    public function destroyCena($id) {
-        if(Auth::user()->isAdmin()) {
+    public function destroyCena($id)
+    {
             Wesele::find($id)->update(['cena' => null]);
             return redirect(route('order.index'));
-        }
     }
 }
 

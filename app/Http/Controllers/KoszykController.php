@@ -12,11 +12,6 @@ use App\Wesele;
 class KoszykController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $user_id = Auth::id();
@@ -101,7 +96,6 @@ class KoszykController extends Controller
     public function update()
     {
         $user_id = Auth::id();
-
 
         $order = Order::where('users_id', $user_id)->where('status', 'koszyk');
         $tort = Tort::where('users_id', $user_id)->where('status', 'koszyk');
