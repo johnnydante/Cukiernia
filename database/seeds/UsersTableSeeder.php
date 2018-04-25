@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
         $user->save();
         $user->roles()->attach($role);
 
-        $user = new \App\User();
+       /* $user = new \App\User();
         $user->name = 'User1';
         $user->email = 'user1@example.com';
         $user->password = bcrypt('qwerty');
@@ -31,6 +31,6 @@ class UsersTableSeeder extends Seeder
         $user->email = 'user2@example.com';
         $user->password = bcrypt('qwerty');
         $user->save();
-        $user->roles()->attach(3);
+        $user->roles()->attach(3);*/
     }
 }

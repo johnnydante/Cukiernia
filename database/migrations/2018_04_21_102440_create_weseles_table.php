@@ -21,8 +21,8 @@ class CreateWeselesTable extends Migration
             $table->integer('users_id')->unsigned();
             $table->string('termin', 55);
             $table->integer('na_ile_osob_tort')->unsigned();
-            $table->string('rodzaj_tortu');
-            $table->string('smak');
+            $table->string('rodzaj_tortu',55);
+            $table->string('smak', 55);
             $table->string('filename', 191)->nullable();
             $table->integer('sernik')->nullable();
             $table->integer('smietana_galaertka')->nullable();

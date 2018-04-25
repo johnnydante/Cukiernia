@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('users_id')->unsigned();
             $table->integer('id_produktu')->unsigned();
-            $table->string('wielkosc');
+            $table->string('wielkosc', 22);
             $table->integer('ilosc')->unsigned();
             $table->timestamps();
         });

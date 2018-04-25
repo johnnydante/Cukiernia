@@ -16,11 +16,6 @@ use Intervention\Image\Exception\NotReadableException;
 class TortyController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index($id)
     {
         $rodzaj = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('rodzaj');
@@ -198,7 +193,6 @@ class TortyController extends Controller
             $path = public_path('storage/products_img/' . $filename);
             Image::make($image->getRealPath())->resize(450, 320)->save($path);
 
-
             Tort::find($id)->update($request->except('filename') + [ 'filename' => $filename]);
             return redirect(route('koszyk.index'));
         } else {
@@ -249,11 +243,11 @@ class TortyController extends Controller
         }
     }
 
-    public function destroyCena($id) {
-        if(Auth::user()->isAdmin()) {
+    public function destroyCena($id)
+    {
             Tort::find($id)->update(['cena' => null]);
             return redirect(route('order.index'));
-        }
+
     }
 
 
