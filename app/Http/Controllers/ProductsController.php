@@ -7,6 +7,7 @@ use App\Http\Requests\EditProductRequest;
 use App\Product;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
+use Intervention\Image\Exception\NotReadableException;
 
 class ProductsController extends Controller
 {
@@ -28,7 +29,14 @@ class ProductsController extends Controller
             $image = Input::file('filename');
             $filename  = time() . '.' . $image->getClientOriginalExtension();
             $path = public_path('storage/products_img/' . $filename);
+            try
+            {
             Image::make($image->getRealPath())->resize(900, 640)->save($path);
+            }
+            catch(NotReadableException $e)
+            {
+            return redirect()->back()->with('status', 'Problem z odczytem zdjęcia, proszę spróbować dodać inne');
+            }
 
             Product::create(
                 $request->except('filename') +

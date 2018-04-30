@@ -191,7 +191,14 @@ class TortyController extends Controller
             $image = Input::file('filename');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $path = public_path('storage/products_img/' . $filename);
-            Image::make($image->getRealPath())->resize(450, 320)->save($path);
+            try
+            {
+                Image::make($image->getRealPath())->resize(450, 320)->save($path);
+            }
+            catch(NotReadableException $e)
+            {
+                return redirect()->back()->with('status', 'Problem z odczytem zdjęcia, proszę spróbować dodać inne');
+            }
 
             Tort::find($id)->update($request->except('filename') + [ 'filename' => $filename]);
             return redirect(route('koszyk.index'));
@@ -216,7 +223,7 @@ class TortyController extends Controller
             catch(NotReadableException $e)
             {
 
-                return redirect()->back();
+                return redirect()->back()->with('status', 'Problem z odczytem zdjęcia, proszę spróbować dodać inne');
             }
             $_POST['blad_zdjecia'] = '';
         Tort::create($request->except('filename') + ['users_id' => $users_id, 'id_kategorii' => $id, 'status' => 'koszyk', 'filename' => $filename]);

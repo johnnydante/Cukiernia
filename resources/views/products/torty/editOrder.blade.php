@@ -13,7 +13,11 @@
                             <span class="section-heading-upper">Edutuj zamówienie torta - {{ $tort->getCategory()->nazwa }}</span>
                             <span class="section-heading-lower"></span>
                         </h2>
-
+                        @if (session('status'))
+                            <div class="alert alert-danger">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                             <div class="row">
                                 <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
                             @if($wybik = count($_POST['tablica_terminow'])>0)

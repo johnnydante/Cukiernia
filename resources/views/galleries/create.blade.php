@@ -9,6 +9,11 @@
                         <h2 class="section-heading mb-5">
                             <span class="section-heading-upper" style="margin-bottom: 30px;">Dodaj zdjęcie torta do galerii</span>
                         </h2>
+                        @if (session('status'))
+                            <div class="alert alert-danger">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         <div class="container" style="position: relative; max-width: 700px; z-index: 25;">
                             {!! Form::open(['route' => 'gallery.store', 'files' => true]) !!}
 

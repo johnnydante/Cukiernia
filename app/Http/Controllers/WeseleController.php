@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Support\Facades\Auth;
 use App\Wesele;
 use App\Http\Requests\WeseleStartRequest;
@@ -10,6 +9,7 @@ use App\Http\Requests\WeseleZamowRequest;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\WeseleDoRealizacjiRequest;
+use Intervention\Image\Exception\NotReadableException;
 
 class WeseleController extends Controller
 {
@@ -20,7 +20,9 @@ class WeseleController extends Controller
     public function store(WeseleStartRequest $request)
     {
             $users_id = Auth::id();
-            Wesele::create($request->all() + ['users_id' => $users_id, 'termin' => '0000-00-00', 'na_ile_osob_tort' => 0, 'rodzaj_tortu' => 'brak', 'smak' =>'brak', 'wielkosc_paczki' => 'brak', 'rodzaj_paczki' => 'brak', 'ile_paczek' => 0, 'status' => 'brak', 'cena' => null]);
+            Wesele::create($request->all() + ['users_id' => $users_id, 'termin' => '0000-00-00', 'na_ile_osob_tort' => 0,
+                    'rodzaj_tortu' => 'brak', 'smak' =>'brak', 'wielkosc_paczki' => 'brak', 'rodzaj_paczki' => 'brak',
+                    'ile_paczek' => 0, 'status' => 'brak', 'cena' => null]);
             return redirect(route('wesele.zamowienie'));
     }
 
@@ -37,7 +39,15 @@ class WeseleController extends Controller
                 $image = Input::file('filename');
                 $filename = time() . '.' . $image->getClientOriginalExtension();
                 $path = public_path('storage/products_img/' . $filename);
+                try
+                {
                 Image::make($image->getRealPath())->resize(450, 320)->save($path);
+                }
+                catch(NotReadableException $e)
+                {
+
+                    return redirect()->back()->with('status', 'Problem z odczytem zdjęcia, proszę spróbować dodać inne');
+                }
 
                 Wesele::find($id)->update($request->except('filename') + ['status' => 'koszyk', 'filename' => $filename, 'cena' => null]);
                 return redirect(route('koszyk.index'));
@@ -76,8 +86,15 @@ class WeseleController extends Controller
                 $image = Input::file('filename');
                 $filename = time() . '.' . $image->getClientOriginalExtension();
                 $path = public_path('storage/products_img/' . $filename);
+                try
+                {
                 Image::make($image->getRealPath())->resize(450, 320)->save($path);
+                }
+                catch(NotReadableException $e)
+                {
 
+                    return redirect()->back()->with('status', 'Problem z odczytem zdjęcia, proszę spróbować dodać inne');
+                }
                 Wesele::find($id)->update($request->except('filename') + array('filename' => $filename));
                 return redirect(route('koszyk.index'));
             } else {

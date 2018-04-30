@@ -40,6 +40,11 @@ class CreateRolesHasUsersTable extends Migration
      */
     public function down()
     {
+        Schema::table('roles_has_users', function (Blueprint $table) {
+           $table->dropForeign('roles_has_users_users_id_foreign');
+           $table->dropForeign('roles_has_users_roles_id_foreign');
+        });
+
         Schema::dropIfExists('roles_has_users');
     }
 }
