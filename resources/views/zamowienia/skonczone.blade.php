@@ -81,6 +81,12 @@
                                             @endif
 
                                         </div>
+                                    @elseif($zamowienie->rodzaj == 'inne')
+                                        <div class="section-heading-upper" style="margin-top: 15px;">
+                                            <b>{{ $zamowienie->ilosc }}</b>  x <b>{{ $zamowienie->getProduct()->nazwa }}</b> <br>
+                                                Termin: <b>{{ $zamowienie->termin }}</b>
+
+                                        </div>
                                     @endif
                                     @if($zamowienie->status == 'oczekuje')
                                     <div class="col text-center" style="margin-top: 20px;">
@@ -115,7 +121,8 @@
                                             <img class="card-img-top" src='{{url("/storage/products_img/".$tort->filename)}}' alt="">
                                         </div>
                                     @else
-                                        <div class="card h-100" style="min-height: 130px; opacity: 0;">
+                                        <div class="card h-100" style="min-height: 130px; border: solid 1px; text-align: center;">
+                                            <h1> <i class="fas fa-times"></i></h1> brak zdjęcia pomocniczego
                                         </div>
                                     @endif
 
@@ -184,7 +191,8 @@
                                             <img class="card-img-top" src='{{url("/storage/products_img/".$wesele->filename)}}' alt="">
                                         </div>
                                     @else
-                                        <div class="card h-100" style="min-height: 130px; opacity: 0;">
+                                        <div class="card h-100" style="min-height: 130px; border: solid 1px; text-align: center;">
+                                            <h1> <i class="fas fa-times"></i></h1> brak zdjęcia pomocniczego
                                         </div>
                                     @endif
 

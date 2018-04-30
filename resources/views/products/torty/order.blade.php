@@ -13,7 +13,11 @@
                             <span class="section-heading-upper">Zamów tort - {{ $products->nazwa }}</span>
                             <span class="section-heading-lower"></span>
                         </h2>
-
+                        @if (session('status'))
+                            <div class="alert alert-danger">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                             <div class="row">
                                 <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
                                     <i>Ceny tortów ustalane są indywidualnie z klientem w zależności od wielkości, rodzaju dekoracji i innych dodatków</i><br><br>
@@ -59,12 +63,12 @@
                                 </div>
 
 <span style=" color: black;">
-Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, co chcesz pokazać na zdjęciu, to możesz dodać dowolne zdjęcie i uwzględnić szczegóły w opisie.</span><br><br>
+Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, co chcesz pokazać na zdjęciu, to możesz dodać zdjęcie i uwzględnić szczegóły w opisie.</span><br><br>
                                 <div class="form-group">
                                     {!! Form::label('filename', "Zdjęcie:") !!}
                                     {!! Form::file('filename', null, ['class' => 'form-control']) !!}
                                 </div>
-                                    @yield('blad')
+
                                 <div class="form-group">
                                     {!! Form::label('info', "Dodatkowy opis:") !!}
                                     {!! Form::textarea('info', null, ['class' => 'form-control']) !!}

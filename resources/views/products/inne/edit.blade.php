@@ -1,21 +1,17 @@
 @extends('layout')
 
 @section('content')
+
     <section class="page-section cta">
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
                     <div class="cta-inner rounded">
                         <h2 class="section-heading mb-5">
-                            <span class="section-heading-upper" style="margin-bottom: 30px;">Dodaj produkt - ciasto</span>
+                            <span class="section-heading-upper" style="margin-bottom: 30px;">Edytuj produkt - inne</span>
                         </h2>
-                        @if (session('status'))
-                            <div class="alert alert-danger">
-                                {{ session('status') }}
-                            </div>
-                        @endif
                         <div class="container" style="position: relative; max-width: 700px; z-index: 25;">
-                            {!! Form::open(['route' => 'product.store', 'files' => true]) !!}
+                            {!! Form::model($inne, ['route' => ['inne_jedno.update', $inne->id], 'method' => 'POST']) !!}
 
                             @if($errors->any())
                                 @foreach ($errors->all() as $error)
@@ -25,31 +21,43 @@
 
                             <div class="form-group">
                                 {!! Form::label('nazwa', "Nazwa produktu:") !!}
-                                {!! Form::text('nazwa', null, ['class' => 'form-control']) !!}
+                                {!! Form::text('nazwa', $inne->nazwa, ['class' => 'form-control']) !!}
                             </div>
 
                             <div class="form-group">
-                                {!! Form::label('cena', "Cena za brytfankę 24x37:") !!}
-                                {!! Form::number('cena', null, ['class' => 'form-control']) !!}
-                            </div>
-
-                            <div class="form-group">
-                                {!! Form::label('cena_mala', "Cena za brytfankę 17x24:") !!}
-                                {!! Form::number('cena_mala', null, ['class' => 'form-control']) !!}
+                                {!! Form::label('cena', "Cena:") !!}
+                                {!! Form::number('cena', $inne->cena, ['class' => 'form-control']) !!}
                             </div>
 
                             <div class="form-group">
                                 {!! Form::label('description', "Opis:") !!}
-                                {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+                                {!! Form::textarea('description', $inne->description, ['class' => 'form-control']) !!}
+                            </div>
+
+{{--
+
+                                <span style=" color: black;">
+                                    Jeżeli nie chcesz zmieniać zdjęcia, to nie musisz dodawać żadnego nowego.</span><br><br>
+
+                            <div class="col-lg-4 col-md-3 col-sm-6 portfolio-item">
+                                <div class="card h-100">
+                                    Aktualne zdjęcie:
+                                    <img class="card-img-top" src='{{url("/storage/products_img/".$products->filename)}}' alt="">
+                                </div>
+                                <div class="intro-button mx-auto" style="margin-top: 5px;">
+                                    <a class="btn btn-danger btn-x2" href="{{route('tort_zdjecie.delete', ['id' => $products->id])}}">Usuń zdjęcie</a>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 {!! Form::label('filename', "Zdjęcie:") !!}
                                 {!! Form::file('filename', null, ['class' => 'form-control']) !!}
                             </div>
+--}}
+
 
                             <div class="form-group">
-                                {!! Form::submit('Zapisz', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::submit('Zapisz', ['class' => 'btn btn-success']) !!}
                                 {!! link_to(URL::previous(),'Powrót', ['class' => 'btn btn-primary']) !!}
                             </div>
 
@@ -60,4 +68,6 @@
             </div>
         </div>
     </section>
+
+
 @endsection

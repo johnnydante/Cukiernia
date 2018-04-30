@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Photos;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Exception\NotReadableException;
 use App\Http\Requests\AddPhotoRequest;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
@@ -30,8 +29,15 @@ class GalleryController extends Controller
             $image = Input::file('filename');
             $filename  = time() . '.' . $image->getClientOriginalExtension();
             $path = public_path('storage/gallery/new/' . $filename);
-            Image::make($image->getRealPath())->resize(427, 320)->save($path);
+            try
+            {
+                Image::make($image->getRealPath())->resize(427, 320)->save($path);
+            }
+                catch(NotReadableException $e)
+            {
 
+                return redirect()->back()->with('status', 'Problem z odczytem zdjęcia, proszę spróbować dodać inne');
+            }
             Photos::create(
                 $request->except('filename') +
                 ['filename' => $filename]
@@ -41,14 +47,15 @@ class GalleryController extends Controller
 
     public function show($id, $numer)
     {
-        $photo = Photos::find($id);
-        return view('galleries.one_photo', compact('photo'), compact('numer'));
+        $jedno = Photos::find($id);
+        $number = $numer;
+        return view('galleries.one_photo', compact('jedno'), compact('number'));
     }
 
     public function destroy($id)
     {
-            Photos::find($id)->delete();
-            return redirect()->back();
+        Photos::find($id)->delete();
+        return redirect()->back();
     }
 
 }

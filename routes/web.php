@@ -30,8 +30,14 @@ Route::get('ciasto/show/{id}', 'ProductsController@show')
 Route::get('ciasteczka', 'CiasteczkaController@index')
     ->name('ciasteczka.index');
 
+Route::get('inne', 'InneController@index')
+    ->name('inne.index');
+
 Route::get('ciasteczko/show/{id}', 'CiasteczkaController@show')
     ->name('ciasteczko.index');
+
+Route::get('inne_jedno/show/{id}', 'InneController@show')
+    ->name('inne_jedno.index');
 
 Route::get('kategorie', 'KategorieTortowController@index')
     ->name('torty.index');
@@ -167,13 +173,28 @@ Route::group([
         Route::post('produkt/update/{id}', 'ProductsController@update')
             ->name('product.update');
 
+        Route::get('inne_jedno/dodaj', 'InneController@create')
+            ->name('inne_jedno.create');
+
+        Route::post('inne_jedno', 'InneController@store')
+            ->name('inne_jedno.store');
+
+        Route::get('inne_jedno/edytuj/{id}', 'InneController@edit')
+            ->name('inne_jedno.edit');
+
+        Route::get('inne_jedno/usun/{id}', 'InneController@destroy')
+            ->name('inne_jedno.delete');
+
+        Route::post('inne_jedno/update/{id}', 'InneController@update')
+            ->name('inne_jedno.update');
+
         Route::get('galeria/dodaj', 'GalleryController@create')
             ->name('gallery.create');
 
         Route::post('galeria', 'GalleryController@store')
             ->name('gallery.store');
 
-        Route::get('galeria/usun/{id}', 'GalleryController@destroy')
+        Route::get('gallery/delete/{id}', 'GalleryController@destroy')
             ->name('gallery.delete');
 
         Route::get('uzytkownicy', 'UsersController@index')

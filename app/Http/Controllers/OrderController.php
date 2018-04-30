@@ -50,8 +50,13 @@ class OrderController extends Controller
         else
             $cena = Product::all()->where('id', $id)->pluck('cena_mala');
 
-        Order::create($request->all() + ['users_id' => $users_id, 'id_produktu' => $id,
-                'status' => 'koszyk', 'rodzaj' => $rodzaj[0], 'suma' => $request->ilosc*$cena[0]]);
+        if($rodzaj[0] == 'inne') {
+            Order::create($request->all() + ['users_id' => $users_id, 'id_produktu' => $id,
+                    'status' => 'koszyk', 'wielkosc' => '0', 'rodzaj' => $rodzaj[0], 'suma' => $request->ilosc*$cena[0]]);
+        } else {
+            Order::create($request->all() + ['users_id' => $users_id, 'id_produktu' => $id,
+                    'status' => 'koszyk', 'rodzaj' => $rodzaj[0], 'suma' => $request->ilosc*$cena[0]]);
+        }
         return redirect(route('koszyk.index'));
     }
 

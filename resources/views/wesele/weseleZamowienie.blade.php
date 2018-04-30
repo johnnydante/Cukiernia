@@ -12,7 +12,11 @@
                             <span class="section-heading-upper">Zamówienie weselne</span>
                             <span class="section-heading-lower"></span>
                         </h2>
-
+                        @if (session('status'))
+                            <div class="alert alert-danger">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         <div class="row">
                             <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
 
@@ -54,7 +58,7 @@
                                     </div>
 
                                     <span style=" color: black;">
-    Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, co chcesz pokazać na zdjęciu, to możesz dodać dowolne zdjęcie i uwzględnić szczegóły w opisie.</span><br><br>
+    Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, co chcesz pokazać na zdjęciu, to możesz dodać zdjęcie i uwzględnić szczegóły w opisie.</span><br><br>
                                     <div class="form-group">
                                         {!! Form::label('filename', "Zdjęcie:") !!}
                                         {!! Form::file('filename', null, ['class' => 'form-control']) !!}

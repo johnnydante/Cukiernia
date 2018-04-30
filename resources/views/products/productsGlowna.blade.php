@@ -17,7 +17,7 @@
 
     <div class="row" style="margin-right: auto; margin-left: auto;">
 
-        <div class="col-lg-4 col-md-3 col-sm-6 portfolio-item">
+        <div class="col-lg-6 col-md-2 col-sm-6 portfolio-item">
             <div class="card h-100" style="background: none; border: none;">
 
                 <a href="{{route('torty.index')}}">
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-3 col-sm-6 portfolio-item">
+        <div class="col-lg-6 col-md-2 col-sm-6 portfolio-item">
             <div class="card h-100" style="background: none; border: none;">
 
                 <a href="{{route('products.index')}}">
@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-3 col-sm-6 portfolio-item">
+        <div class="col-lg-6 col-md-2 col-sm-6 portfolio-item">
             <div class="card h-100" style="background: none; border: none;">
 
                 <a href="{{route('ciasteczka.index')}}">
@@ -62,7 +62,20 @@
             </div>
         </div>
 
+        <div class="col-lg-6 col-md-2 col-sm-6 portfolio-item">
+            <div class="card h-100" style="background: none; border: none;">
 
+                <a href="{{route('inne.index')}}">
+
+                    <img class="card-img-top" style="border-radius: 30px; border: solid 1px; border-color: black; box-shadow: 5px 5px 10px grey;" src='{{url("/temp/img/produkty/inne.jpg")}}' alt=""></a>
+
+                <div class="intro-button mx-auto" style="margin-top: 1px;">
+                    <a class="btn btn-primary btn-x2" style="color: rgba(47,23,15,.9);" href="{{route('inne.index')}}">Inne</a>
+                </div>
+
+
+            </div>
+        </div>
 
     </div>
 

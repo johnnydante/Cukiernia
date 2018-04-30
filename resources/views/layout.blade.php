@@ -119,7 +119,7 @@
 @endif--}}
 <h1 class="site-heading text-center text-white d-none d-lg-block">
     <span class="site-heading-lower mb-3">Cukiernia</span>
-    <span class="site-heading-upper text-primary">słodkości nigdy za wiele</span>
+    <span class="site-heading-upper text-primary">Magiczne torty</span>
 
 </h1>
 @guest
@@ -153,10 +153,10 @@
 @endguest
 
 <!-- Navigation -->
-@if(Auth::check() and Auth::user()->isAdmin())
+
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
         <div class="container">
-            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{{route('home')}}">Cukiernia</a>
+            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{{route('home')}}">Magiczne torty</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -167,7 +167,7 @@
                     </li>
 
 
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['products.index', 'tort.show', 'product.index', 'torty.index', 'ciasteczka.index', 'ciasteczko.index', 'productsGlowna.index'])) ? 'active': ''}}">
+                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['products.index', 'tort.show', 'product.index', 'torty.index', 'ciasteczka.index', 'ciasteczko.index', 'productsGlowna.index', 'inne.index', 'inne_jedno.index'])) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('productsGlowna.index')}}">Produkty</a>
                     </li>
                     <li class="nav-item px-lg-4 {{ (request()->routeIs(['wesele.index'])) ? 'active': ''}}">
@@ -187,6 +187,7 @@
             </div>
         </div>
     </nav>
+        @if(Auth::check() and Auth::user()->isAdmin())
     <nav class="navbar navbar-expand-lg navbar-light py-lg-4" id="mainNav" style="background-color: darkolivegreen;">
         <div class="container" >
             <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{{route('users.index')}}">Panel admina</a>
@@ -204,40 +205,6 @@
                     </li>
                     <li class="nav-item px-lg-4 {{ (request()->routeIs('kalendarz.index')) ? 'active': ''}}">
                         <a class="nav-link text-uppercase text-expanded" href="{{route('kalendarz.index')}}">Kalendarz zamówień</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-@else
-    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{{route('home')}}">Cukiernia</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['home','register'])) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('home')}}">Strona główna</a>
-                    </li>
-
-
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['products.index','product.index', 'tort.show', 'torty.index', 'ciasteczka.index', 'ciasteczko.index', 'productsGlowna.index'])) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('productsGlowna.index')}}">Produkty</a>
-                    </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['wesele.index'])) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('wesele.index')}}">Słodkie wesela</a>
-                    </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs('about.index')) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('about.index')}}">O nas</a>
-                    </li>
-
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs(['gallery.index', 'gallery.create', 'gallery.show'])) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('gallery.index')}}">Galeria tortów</a>
-                    </li>
-                    <li class="nav-item px-lg-4 {{ (request()->routeIs('contact.index', 'contact.postContact')) ? 'active': ''}}">
-                        <a class="nav-link text-uppercase text-expanded" href="{{route('contact.index')}}">Kontakt</a>
                     </li>
                 </ul>
             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Callendar;
 use App\Http\Requests\CallendarRequest;
 use App\Order;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use App\Wesele;
 use App\Tort;
@@ -26,6 +27,13 @@ class KalendarzController extends Controller
             $ilosci_brytfanek = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('ilosc');
             $_POST['orders'] = $terminy;
             $_POST['torts'] = $terminy_tortow;
+            $_POST['weseles_start'] = [];
+            foreach($terminy_wesel as $key => $termin) {
+                $termin_start = Carbon::createFromFormat('Y-m-d', $termin);
+
+                array_push($_POST['weseles_start'], $termin_start->subDays(5)->format('Y-m-d'));
+            }
+
             $_POST['weseles'] = $terminy_wesel;
             $_POST['ilosc'] = $ilosci_brytfanek;
 

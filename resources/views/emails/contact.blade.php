@@ -6,6 +6,4 @@
 </div>
 
 <p> Wysłana przez: </p>
-<p> {{ $imie }} {{ $nazwisko }} </p>
-<p>{{ $tel }}</p>
-<p>{{ $email }}</p>
+<p> {{ $imie }} {{ $nazwisko }}, tel: {{ $tel }}, e-mail: {{ $email }}</p>

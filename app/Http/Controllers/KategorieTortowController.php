@@ -7,6 +7,7 @@ use App\Http\Requests\EditKategorieRequest;
 use App\Http\Requests\AddKategorieRequest;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Input;
+use Intervention\Image\Exception\NotReadableException;
 
 class KategorieTortowController extends Controller
 {
@@ -46,7 +47,14 @@ class KategorieTortowController extends Controller
             $image = Input::file('filename');
             $filename  = time() . '.' . $image->getClientOriginalExtension();
             $path = public_path('storage/products_img/' . $filename);
+            try
+            {
             Image::make($image->getRealPath())->resize(900, 740)->save($path);
+            }
+            catch(NotReadableException $e)
+            {
+            return redirect()->back()->with('status', 'Problem z odczytem zdjęcia, proszę spróbować dodać inne');
+            }
 
             Kategorie::create(
                 $request->except('filename') +
