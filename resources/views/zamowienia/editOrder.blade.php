@@ -167,7 +167,7 @@
                                 @endif
                             </div>
                             <div class="row">
-                                <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
+                                <div class="container" style="max-width: 700px; color: #d77d00; z-index: 1;">
                                     {!! Form::model($order, ['route' => ['order.update', $order], 'method' => 'POST']) !!}
 
                                     @if($errors->any())

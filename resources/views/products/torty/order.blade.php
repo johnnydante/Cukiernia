@@ -19,7 +19,7 @@
                             </div>
                         @endif
                             <div class="row">
-                                <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
+                                <div class="container" style="max-width: 700px;  color: #d77d00; z-index: 1;">
                                     <i>Ceny tortów ustalane są indywidualnie z klientem w zależności od wielkości, rodzaju dekoracji i innych dodatków</i><br><br>
                             @if($wybik = count($_POST['tablica_terminow'])>0)
                                 <span style="text-align: justify; color: black;">

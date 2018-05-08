@@ -18,15 +18,9 @@
                             </div>
                         @endif
                         <div class="row">
-                            <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
+                            <div class="container" style="max-width: 700px; color: #d77d00; z-index: 1;">
 
-                                    <span style="text-align: justify; color: black;">
-                                    <i>Proszę wypełnić wszystkie pola dotyczące zamówienia weselnego</i><br>
-
-
-                                </span><br><br>
-
-                                {!! Form::open(['route' => ['zamowWesele.store', $wesele->id], 'files' => true, 'method' => 'POST']) !!}
+                                {!! Form::open(['route' => 'zamowWesele.store', 'files' => true, 'method' => 'POST']) !!}
 
                                 @if($errors->any())
                                     @foreach ($errors->all() as $error)
@@ -35,11 +29,11 @@
                                 @endif
 
                                 <div class="form-group">
-                                    {!! Form::label('termin', "Termin:") !!}
+                                    {!! Form::label('termin', "Termin wesela:") !!}
                                     {!! Form::text('termin', '', ['class' => 'datepicker', 'id' => 'datepicker']) !!}
                                 </div>
 
-                                @if(!$wesele->tort==null)
+                                @if(isset($_GET['tort']))
                                     <br>
                                     <b style="color: black;">Szczególy dotyczące torta:</b><br><br>
                                     <div class="form-group">
@@ -68,7 +62,7 @@
                                     {!! Form::label('info', "Dodatkowe informacje:") !!}
                                     {!! Form::textarea('info', null, ['class' => 'form-control']) !!}
                                 </div>
-                                @if(!$wesele->ciasta==null)
+                                @if(isset($_GET['ciasta']))
                                     <br>
                                     <b style="color: black;">Podaj ilości brytfanek ciast, które chcesz na salę:</b><br><br>
                                     <div class="form-group">
@@ -109,7 +103,7 @@
                                     </div>
                                 @endif
 
-                                @if(!$wesele->paczki==null)
+                                @if(isset($_GET['paczki']))
                                     <br>
                                     <b style="color: black;">Szczególy dotyczące paczek dla gości:</b><br><br>
                                     <div class="form-group">
@@ -135,7 +129,7 @@
 
                                 {!! Form::close() !!}
                                 <div class="intro-button mx-auto" style="margin-top: 20px;">
-                                    <a class="btn btn-primary btn-x2" href="{{route('wesele.deleteWstepne', ['id'=>$wesele->id])}}">Powrót</a>
+                                    <a class="btn btn-primary btn-x2" href="{{route('wesele.index')}}">Powrót</a>
                                 </div>
                             </div>
 

@@ -16,7 +16,6 @@ class OrderController extends Controller
 
     public function index()
     {
-            Wesele::where('status', 'brak')->delete();
             $orders = Order::orderBy('termin')->paginate(1000);
             $torty = Tort::orderBy('termin')->paginate(1000);
             $wesela = Wesele::orderBy('termin')->paginate(1000);

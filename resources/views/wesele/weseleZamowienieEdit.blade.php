@@ -18,7 +18,7 @@
                             </div>
                         @endif
                         <div class="row">
-                            <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
+                            <div class="container" style="max-width: 700px; color: #d77d00; z-index: 1;">
 
 
                                 {!! Form::model($wesele, ['route' => ['zamowWesele.update', $wesele->id], 'files' => true, 'method' => 'POST']) !!}
@@ -34,7 +34,7 @@
                                     {!! Form::text('termin', $wesele->termin, ['class' => 'datepicker', 'id' => 'datepicker']) !!}
                                 </div>
 
-                                @if(!$wesele->tort==null)
+                                @if($wesele->rodzaj_tortu!=null)
                                     <br>
                                     <b style="color: black;">Szczególy dotyczące torta:</b><br><br>
                                     <div class="form-group">
@@ -73,7 +73,7 @@
                                     {!! Form::label('info', "Dodatkowe informacje:") !!}
                                     {!! Form::textarea('info', $wesele->info, ['class' => 'form-control']) !!}
                                 </div>
-                                @if(!$wesele->ciasta==null)
+
                                     <br>
                                     <b style="color: black;">Podaj ilości brytfanek ciast, które chcesz na salę:</b><br><br>
                                     <div class="form-group">
@@ -112,9 +112,9 @@
                                         {!! Form::label('czekoladowe', "Czekoladowe:") !!}
                                         {!! Form::number('czekoladowe',  $wesele->czekoladowe, ['class' => 'form-control']) !!}
                                     </div>
-                                @endif
 
-                                @if(!$wesele->paczki==null)
+
+                                @if($wesele->rodzaj_paczki!=null)
                                     <br>
                                     <b style="color: black;">Szczególy dotyczące paczek dla gości:</b><br><br>
                                     <div class="form-group">

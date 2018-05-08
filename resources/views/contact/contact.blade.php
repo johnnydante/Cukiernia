@@ -62,7 +62,7 @@
                                 @endauth
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="text-align: center;">
                                 {!! Form::submit('Wyślij', ['class' => 'btn btn-primary']) !!}
                             </div>
 

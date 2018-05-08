@@ -29,7 +29,7 @@
                             @endif
                             </div>
                         <div class="row">
-                            <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
+                            <div class="container" style="max-width: 700px; color: #d77d00; z-index: 1;">
                                 {!! Form::open(['route' => ['order.store', $products->id], 'method' => 'POST']) !!}
 
                                 @if($errors->any())
@@ -106,7 +106,7 @@
                                 @endif
                             </div>
                             <div class="row">
-                                <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
+                                <div class="container" style="max-width: 700px; color: #d77d00; z-index: 1;">
                                     {!! Form::open(['route' => ['order.store', $products->id], 'method' => 'POST']) !!}
 
                                     @if($errors->any())
@@ -183,7 +183,7 @@
                                 @endif
                             </div>
                             <div class="row">
-                                <div class="container" style="max-width: 700px; color: orange; z-index: 1;">
+                                <div class="container" style="max-width: 700px; color: #d77d00; z-index: 1;">
                                     {!! Form::open(['route' => ['order.store', $products->id], 'method' => 'POST']) !!}
 
                                     @if($errors->any())

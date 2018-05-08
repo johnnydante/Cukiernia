@@ -44,7 +44,7 @@
         </div>
     </section>
     <div class="container" style="max-width: 1000px;">
-    {!! Form::open(['route' => 'wesele.store', 'method' => 'POST']) !!}
+    {!! Form::open(['route' => 'wesele.show', 'method' => 'GET']) !!}
     <section class="page-section clearfix" >
         <div class="container">
             <div class="intro">
@@ -102,7 +102,7 @@
         </div>
     </section>
     <div class="form-group" style="text-align: center;">
-        {!! Form::submit('Przejdź dalej', ['class' => 'btn btn-success']) !!}
+        {!! Form::submit('Przejdź dalej', ['class' => 'btn btn-primary', 'style' => 'color: rgba(47,23,15,.9)']) !!}
     </div>
 
     {!! Form::close() !!}

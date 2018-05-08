@@ -9,7 +9,7 @@
                         <h2 class="section-heading mb-5">
                             <span class="section-heading-upper" style="margin-bottom: 30px;">Edytuj produkt - ciasto</span>
                         </h2>
-                        <div class="container" style="position: relative; max-width: 700px; z-index: 25;">
+                        <div class="container" style="position: relative; max-width: 700px; z-index: 25; color: #d77d00">
                             {!! Form::model($products, ['route' => ['product.update', $products->id], 'method' => 'POST']) !!}
 
                             @if($errors->any())
@@ -38,7 +38,7 @@
                                 {!! Form::textarea('description', $products->description, ['class' => 'form-control']) !!}
                             </div>
 
-{{--
+                            {{--
                                 <span style=" color: black;">
                                     Jeżeli nie chcesz zmieniać zdjęcia, to nie musisz dodawać żadnego nowego.</span><br><br>
 
@@ -52,12 +52,11 @@
                                     </div>
                                 </div>
 
-                            <div class="form-group">
-                                {!! Form::label('filename', "Zdjęcie:") !!}
-                                {!! Form::file('filename', null, ['class' => 'form-control']) !!}
-                            </div>
+                                <div class="form-group">
+                                    {!! Form::label('filename', "Zdjęcie:") !!}
+                                    {!! Form::file('filename', null, ['class' => 'form-control']) !!}
+                                </div>
                             --}}
-
 
                             <div class="form-group">
                                 {!! Form::submit('Zapisz', ['class' => 'btn btn-success']) !!}

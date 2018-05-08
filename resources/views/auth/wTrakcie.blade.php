@@ -187,7 +187,7 @@
                                 </div>
                                 <div class="section-heading-upper" style="margin-top: 15px;">
                                     <b>ZAMÓWIENIE WESELNE</b><br>
-                                    @if(!$wesele->tort==null)
+                                    @if($wesele->rodzaj_tortu!=null)
                                         Tort na <b>{{ $wesele->na_ile_osob_tort }}</b> osób<br>
                                         Rodzaj dekoracji:
                                         @if($wesele->rodzaj_tortu==0)
@@ -216,16 +216,14 @@
                                     Termin: <b>{{ $wesele->termin }}</b>
                                     <br>Koszt: <b>{{ $wesele->cena }}</b> zł
                                 </div>
-
                                     <div class="col text-center" style="margin-top: 5px;">
                                         <b>Status:</b> {{ $wesele->status }}<br>
-
                                         <div class="intro-button mx-auto" style="margin-top: 5px;">
                                             <a onclick="return confirm('Czy na pewno chcesz zakończyć realizację?')" class="btn btn-success btn-x2" href="{{route('wesele.updateZrealizowane', ['id' => $wesele->id])}}">Zakończ realizację</a>
                                         </div>
                                     </div>
                                 </div>
-                                @if(!$wesele->ciasta==null)
+
 
                                     <b> Ciasta na salę:</b><br>-
                                     @if($wesele->sernik>0)
@@ -255,8 +253,8 @@
                                     @if($wesele->czekoladowe>0)
                                         <b>{{ $wesele->czekoladowe }}</b> x czekoladowe,
                                     @endif
-                                @endif
-                                @if(!$wesele->paczki==null)
+
+                                @if($wesele->rodzaj_paczki!=null)
                                     <br>
                                     <b>  Paczki dla gości:  <br> - {{ $wesele->ile_paczek }}</b> szt., w których ma być po
                                     @if( $wesele->wielkosc_paczki==0)
@@ -270,12 +268,12 @@
                                         {{ '(ciasta inne, niż na sali)' }}
                                     @endif
                                 @endif
-                                <div class="row" style="margin-left: 20px; margin-right: 20px;">
-                                    <div class="section-heading-upper" style=" margin-bottom: 20px;">
-                                        <b>Dodatkowe informacje:</b> {{ $wesele->info }}
-                                    </div>
+                            <div class="row" style="margin-left: 20px; margin-right: 20px;">
+                                <div class="section-heading-upper" style=" margin-bottom: 20px;">
+                                    <b>Dodatkowe informacje:</b> {{ $wesele->info }}
                                 </div>
-                                @endforeach
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
