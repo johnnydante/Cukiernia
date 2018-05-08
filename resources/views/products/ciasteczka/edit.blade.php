@@ -10,7 +10,7 @@
                         <h2 class="section-heading mb-5">
                             <span class="section-heading-upper" style="margin-bottom: 30px;">Edytuj produkt - ciasteczka</span>
                         </h2>
-                        <div class="container" style="position: relative; max-width: 700px; z-index: 25;">
+                        <div class="container" style="position: relative; max-width: 700px; z-index: 25; color: #d77d00">
                             {!! Form::model($products, ['route' => ['ciasteczko.update', $products->id], 'method' => 'POST']) !!}
 
                             @if($errors->any())

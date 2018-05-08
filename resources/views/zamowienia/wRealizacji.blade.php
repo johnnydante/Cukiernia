@@ -211,7 +211,7 @@
                                 </div>
                                 <div class="section-heading-upper" style="margin-top: 15px;">
                                     <b>ZAMÓWIENIE WESELNE</b><br>
-                                    @if(!$wesele->tort==null)
+                                    @if($wesele->rodzaj_tortu!=null)
                                         Tort na <b>{{ $wesele->na_ile_osob_tort }}</b> osób<br>
                                         Rodzaj dekoracji:
                                         @if($wesele->rodzaj_tortu==0)
@@ -259,7 +259,7 @@
                                     </div>
                                 @endif
                             </div>
-                            @if(!$wesele->ciasta==null)
+
 
                                 <b> Ciasta na salę:</b><br>-
                                 @if($wesele->sernik>0)
@@ -289,8 +289,8 @@
                                 @if($wesele->czekoladowe>0)
                                     <b>{{ $wesele->czekoladowe }}</b> x czekoladowe,
                                 @endif
-                            @endif
-                            @if(!$wesele->paczki==null)
+
+                            @if($wesele->rodzaj_paczki!=null)
                                 <br>
                                 <b>  Paczki dla gości:  <br> - {{ $wesele->ile_paczek }}</b> szt., w których ma być po
                                 @if( $wesele->wielkosc_paczki==0)

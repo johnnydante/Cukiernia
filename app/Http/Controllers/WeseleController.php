@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Wesele;
-use App\Http\Requests\WeseleStartRequest;
 use App\Http\Requests\WeseleZamowRequest;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
@@ -17,44 +16,33 @@ class WeseleController extends Controller
         return view('wesele.wesela');
     }
 
-    public function store(WeseleStartRequest $request)
+    public function show()
     {
-            $users_id = Auth::id();
-            Wesele::create($request->all() + ['users_id' => $users_id, 'termin' => '0000-00-00', 'na_ile_osob_tort' => 0,
-                    'rodzaj_tortu' => 'brak', 'smak' =>'brak', 'wielkosc_paczki' => 'brak', 'rodzaj_paczki' => 'brak',
-                    'ile_paczek' => 0, 'status' => 'brak', 'cena' => null]);
-            return redirect(route('wesele.zamowienie'));
+        return view('wesele.weseleZamowienie');
     }
 
-    public function zamowienie()
+    public function zamowStore(WeseleZamowRequest $request)
     {
         $users_id = Auth::id();
-        $wesele = Wesele::where('users_id', $users_id)->orderBy('id', 'DESC')->first();
-        return view('wesele.weseleZamowienie', compact('wesele'));
-    }
-
-    public function zamowStore(WeseleZamowRequest $request, $id)
-    {
-            if(Input::file('filename')) {
-                $image = Input::file('filename');
-                $filename = time() . '.' . $image->getClientOriginalExtension();
-                $path = public_path('storage/products_img/' . $filename);
-                try
-                {
-                Image::make($image->getRealPath())->resize(450, 320)->save($path);
-                }
-                catch(NotReadableException $e)
-                {
-
-                    return redirect()->back()->with('status', 'Problem z odczytem zdjęcia, proszę spróbować dodać inne');
-                }
-
-                Wesele::find($id)->update($request->except('filename') + ['status' => 'koszyk', 'filename' => $filename, 'cena' => null]);
-                return redirect(route('koszyk.index'));
-            } else {
-                Wesele::find($id)->update($request->all()+ ['status' => 'koszyk']);
-                return redirect(route('koszyk.index'));
+        if(Input::file('filename')) {
+            $image = Input::file('filename');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $path = public_path('storage/products_img/' . $filename);
+            try
+            {
+            Image::make($image->getRealPath())->resize(450, 320)->save($path);
             }
+            catch(NotReadableException $e)
+            {
+
+                return redirect()->back()->with('status', 'Problem z odczytem zdjęcia, proszę spróbować dodać inne');
+            }
+            Wesele::create($request->except('filename') + ['users_id' => $users_id, 'status' => 'koszyk', 'filename' => $filename]);
+            return redirect(route('koszyk.index'));
+        } else {
+            Wesele::create($request->all()+ ['users_id' => $users_id, 'status' => 'koszyk']);
+            return redirect(route('koszyk.index'));
+        }
     }
 
     public function destroy_zdjecie($id)

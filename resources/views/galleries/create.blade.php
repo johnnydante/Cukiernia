@@ -14,7 +14,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <div class="container" style="position: relative; max-width: 700px; z-index: 25;">
+                        <div class="container" style="position: relative; max-width: 700px; z-index: 25; color: #d77d00">
                             {!! Form::open(['route' => 'gallery.store', 'files' => true]) !!}
 
                             @if($errors->any())
@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="form-group">
-                                {!! Form::submit('Zapisz', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::submit('Zapisz', ['class' => 'btn btn-success']) !!}
                                 {!! link_to(URL::previous(),'Powrót', ['class' => 'btn btn-primary']) !!}
                             </div>
 

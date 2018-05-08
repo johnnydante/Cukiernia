@@ -106,13 +106,10 @@ Route::group([
     Route::get('user/delete/{id}', 'ProfileController@destroy')
         ->name('user.delete');
 
-    Route::get('wesele/zamowienie', 'WeseleController@zamowienie')
-        ->name('wesele.zamowienie');
+    Route::get('wesele/zamowienie', 'WeseleController@show')
+        ->name('wesele.show');
 
-    Route::post('wesele/zamowienie', 'WeseleController@store')
-        ->name('wesele.store');
-
-    Route::post('wesele/zamow_wesele/{id}', 'WeseleController@zamowStore')
+    Route::post('wesele/zamow_wesele', 'WeseleController@zamowStore')
         ->name('zamowWesele.store');
 
     Route::get('wesele/zamowienie/edytuj/{id}', 'WeseleController@edit')

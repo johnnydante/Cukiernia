@@ -24,7 +24,14 @@ class WeseleZamowRequest extends FormRequest
     public function rules()
     {
         return [
+            'termin' => 'required'
+        ];
+    }
 
+    public function messages()
+    {
+        return [
+            'termin.required' => 'Termin jest wymagany!',
         ];
     }
 }

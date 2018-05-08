@@ -15,14 +15,11 @@ class CreateWeselesTable extends Migration
     {
         Schema::create('weseles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tort', 55)->nullable();
-            $table->string('ciasta', 55)->nullable();
-            $table->string('paczki', 55)->nullable();
             $table->integer('users_id')->unsigned();
             $table->string('termin', 55);
-            $table->integer('na_ile_osob_tort')->unsigned();
-            $table->string('rodzaj_tortu',55);
-            $table->string('smak', 55);
+            $table->integer('na_ile_osob_tort')->unsigned()->nullable();
+            $table->string('rodzaj_tortu',55)->nullable();
+            $table->string('smak', 55)->nullable();
             $table->string('filename', 191)->nullable();
             $table->integer('sernik')->nullable();
             $table->integer('smietana_galaertka')->nullable();
@@ -34,8 +31,8 @@ class CreateWeselesTable extends Migration
             $table->integer('miodownik')->nullable();
             $table->integer('czekoladowe')->nullable();
             $table->integer('ile_paczek')->unsigned();
-            $table->string('wielkosc_paczki', 55);
-            $table->string('rodzaj_paczki', 55);
+            $table->string('wielkosc_paczki', 55)->nullable();
+            $table->string('rodzaj_paczki', 55)->nullable();
             $table->text('info')->nullable();
             $table->string('status',91);
             $table->timestamps();
