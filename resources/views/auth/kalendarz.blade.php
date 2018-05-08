@@ -59,6 +59,8 @@
 
         var terminy = <?php echo json_encode($_POST['wykluczone']) ?>;
         var terminy2 = <?php echo json_encode($_POST['terminyBezZamowien']) ?>;
+        var terminy_start = <?php echo json_encode($_POST['terminy_start']) ?>;
+        var terminy_end = <?php echo json_encode($_POST['terminy_end']) ?>;
         var rodzaj = <?php echo json_encode($_POST['rodzaj']) ?>;
         var events = [];
 
@@ -74,6 +76,38 @@
             events.push({
                 title: '- Max -',
                 start: terminy2[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < terminy_start.length; i++) {
+
+            events.push({
+                title: '- Max -',
+                start: terminy_start[i],
+                end: terminy_end[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < wesela.length; i++) {
+
+            events.push({
+                title: '- Max -',
+                start: wesela[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < wesela.length; i++) {
+
+            events.push({
+                title: '- Max -',
+                start: wesela_start[i],
+                end: wesela[i],
                 color: 'red'
 
             })
@@ -109,8 +143,7 @@
 
             events.push({
                 title: '1 x Wesele',
-                start: wesela_start[i],
-                end: wesela[i]
+                start: wesela[i]
             })
         }
 

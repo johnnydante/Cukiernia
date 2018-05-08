@@ -175,10 +175,7 @@
 
                                 @if($wybik = count($_POST['tablica_terminow'])>0)
                                     Z powodu zbyt dużej ilości zamówień, niektóre terminy są już niedostępne,
-                                    <br> ponieżej formularza znajduje się się kalendarz terminów.
-                                    {{--                               @foreach($_POST['tablica_terminow'] as $termin)
-                                                                      {{$termin}},
-                                                                   @endforeach--}}
+                                    <br> poniżej formularza znajduje się się kalendarz terminów.
                                     <br>Przepraszamy i prosimy o składanie zamówień na wolne dni, dziękujemy!
                                 @endif
                             </div>
@@ -232,9 +229,57 @@
 
     <script>
 
-        var terminy = <?php echo json_encode($_POST['tablica_terminow']) ?>;
+        var terminy = <?php echo json_encode($_POST['wykluczone']) ?>;
+        var terminy2 = <?php echo json_encode($_POST['terminyBezZamowien']) ?>;
+        var terminy_start = <?php echo json_encode($_POST['terminy_start']) ?>;
+        var terminy_end = <?php echo json_encode($_POST['terminy_end']) ?>;
         var events = [];
 
+        var wesela = <?php echo json_encode($_POST['weseles']) ?>;
+        var wesela_start = <?php echo json_encode($_POST['weseles_start']) ?>;
+
+
+        for (var i=0; i < terminy2.length; i++) {
+
+            events.push({
+                title: 'Wykluczony',
+                start: terminy2[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < terminy_start.length; i++) {
+
+            events.push({
+                title: 'Wykluczony',
+                start: terminy_start[i],
+                end: terminy_end[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < wesela.length; i++) {
+
+            events.push({
+                title: 'Wykluczony',
+                start: wesela[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < wesela.length; i++) {
+
+            events.push({
+                title: 'Wykluczony',
+                start: wesela_start[i],
+                end: wesela[i],
+                color: 'red'
+
+            })
+        }
 
         for (var i=0; i < terminy.length; i++) {
 

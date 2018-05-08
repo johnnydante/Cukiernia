@@ -113,11 +113,11 @@
 <body>
 <h1 class="site-heading text-center text-white d-none d-lg-block">
     <i class="fas fa-birthday-cake fa-1x" style="color: #ffbe52;"></i>
-    <i class="fas fa-birthday-cake fa-2x" style="color: antiquewhite;"></i>
+    <i class="fas fa-birthday-cake fa-3x" style="color: antiquewhite;"></i>
 
-    <i class="fas fa-birthday-cake fa-1x" style="color: #ffbe52;"></i>
+    <i class="fas fa-birthday-cake fa-2x" style="color: #ffbe52;"></i>
 
-    <i class="fas fa-birthday-cake fa-2x" style="color: antiquewhite;"></i>
+    <i class="fas fa-birthday-cake fa-3x" style="color: antiquewhite;"></i>
     <i class="fas fa-birthday-cake fa-1x" style="color: #ffbe52;"></i>
     <span class="site-heading-upper text-primary" style="margin-top: 10px;">Magiczne torty</span>
 
@@ -219,18 +219,20 @@
     <div class="container">
         <p class="m-0 small">
             Copyright &copy; Magiczne torty 2018<br>
-            Niniejsza strona internetowa jest tylko i wyłącznie stroną pokazową
+            Niniejsza strona internetowa jest tylko i wyłącznie stroną pokazową wykonaną w ramach portfolio
         </p>
     </div>
 </footer>
-
 
 <!-- Bootstrap core JavaScript -->
 <script src="{{url("/temp/vendor/jquery/jquery.min.js")}}"></script>
 <script src="{{url("/temp/vendor/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
 
     <script src="{{url("/js/moment.js")}}"></script>
+
     <script src="{{url("/js/pikaday.js")}}"></script>
+    <script src="{{url("/js/fullcalendar.js")}}"></script>
+
     <script>
         var picker = new Pikaday({
             field: document.getElementById('datepicker'),
@@ -240,7 +242,6 @@
             maxDate: new Date('2040-12-31'),
             yearRange: [1900, 2040]
         });
-
     </script>
     <script>
         var picker = new Pikaday({
@@ -251,9 +252,7 @@
             maxDate: new Date('2040-12-31'),
             yearRange: [1900, 2040]
         });
-
     </script>
-    <script src="{{url("/js/fullcalendar.js")}}"></script>
 
 @yield('scripts')
 

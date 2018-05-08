@@ -21,17 +21,13 @@
                             <div class="row">
                                 <div class="container" style="max-width: 700px;  color: #d77d00; z-index: 1;">
                                     <i>Ceny tortów ustalane są indywidualnie z klientem w zależności od wielkości, rodzaju dekoracji i innych dodatków</i><br><br>
-                            @if($wybik = count($_POST['tablica_terminow'])>0)
-                                <span style="text-align: justify; color: black;">
 
-
-                                Z powodu zbyt dużej ilości zamówień, niektóre terminy są już niedostępne, poniżej formularza znajduje się się kalendarz terminów.
- {{--                               @foreach($_POST['tablica_terminow'] as $termin)
-                                   {{$termin}},
-                                @endforeach--}}
-                                <br>Przepraszamy i prosimy o składanie zamówień na wolne dni, dziękujemy!
-                                </span><br><br>
-                            @endif
+                                @if($wybik = count($_POST['tablica_terminow'])>0)
+                                    <span style="text-align: justify; color: black;">
+                                    Z powodu zbyt dużej ilości zamówień, niektóre terminy są już niedostępne, poniżej formularza znajduje się się kalendarz terminów.
+                                    <br>Przepraszamy i prosimy o składanie zamówień na wolne dni, dziękujemy!
+                                    </span><br><br>
+                                @endif
 
 
                                 {!! Form::open(['route' => ['zamowTort.store', $products->id], 'files' => true, 'method' => 'POST']) !!}
@@ -91,7 +87,8 @@ Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, 
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 @endsection
 
@@ -99,9 +96,57 @@ Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, 
 
     <script>
 
-        var terminy = <?php echo json_encode($_POST['tablica_terminow']) ?>;
+        var terminy = <?php echo json_encode($_POST['wykluczone']) ?>;
+        var terminy2 = <?php echo json_encode($_POST['terminyBezZamowien']) ?>;
+        var terminy_start = <?php echo json_encode($_POST['terminy_start']) ?>;
+        var terminy_end = <?php echo json_encode($_POST['terminy_end']) ?>;
         var events = [];
 
+        var wesela = <?php echo json_encode($_POST['weseles']) ?>;
+        var wesela_start = <?php echo json_encode($_POST['weseles_start']) ?>;
+
+
+        for (var i=0; i < terminy2.length; i++) {
+
+            events.push({
+                title: 'Wykluczony',
+                start: terminy2[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < terminy_start.length; i++) {
+
+            events.push({
+                title: 'Wykluczony',
+                start: terminy_start[i],
+                end: terminy_end[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < wesela.length; i++) {
+
+            events.push({
+                title: 'Wykluczony',
+                start: wesela[i],
+                color: 'red'
+
+            })
+        }
+
+        for (var i=0; i < wesela.length; i++) {
+
+            events.push({
+                title: 'Wykluczony',
+                start: wesela_start[i],
+                end: wesela[i],
+                color: 'red'
+
+            })
+        }
 
         for (var i=0; i < terminy.length; i++) {
 
