@@ -63,7 +63,12 @@ class KalendarzController extends Controller
             {
                 if($wartosc == $terminy[$i])
                 {
-                    $wynik += $ilosci_brytfanek[$i];
+                    if($rodzaj[$i]=='ciasteczko') {
+                        $ilosci_ciasteczek[$i] = $ilosci_brytfanek[$i]/50;
+                        $wynik += $ilosci_ciasteczek[$i];
+                    } else {
+                        $wynik += $ilosci_brytfanek[$i];
+                    }
                 }
                 for($x=0; $x< $terminy_tortow->count(); $x++) {
                     if ($wartosc == $torty_array[$x]) {

@@ -7,7 +7,7 @@
             border-radius: 50px!important;
         }
         .bg-faded {
-            border-radius: 20px!important;
+            border-radius: 30px!important;
         }
 
     </style>
@@ -18,7 +18,15 @@
                 <div class="product-item-title d-flex">
                     <div class="bg-faded p-5 d-flex mr-auto rounded">
                         <h2 class="section-heading mb-0">
-                            <span class="section-heading-upper">Cena: {{ $products->cena }} zł ({{ $products->cena_mala }} zł)</span>
+                            <span class="section-heading-upper">Cena:
+                                @if(floor($products->cena/100)==0)
+                                    {{ $products->cena-(floor($products->cena/100)*100) }} gr
+                                @elseif($products->cena-(floor($products->cena/100)*100)==0)
+                                    {{ floor($products->cena/100) }} zł
+                                @else
+                                    {{ floor($products->cena/100) }} zł {{ $products->cena-(floor($products->cena/100)*100) }} gr
+                                @endif
+                            </span>
                             <span class="section-heading-lower">{{ $products->nazwa }}</span>
                         </h2>
                     </div>
@@ -28,7 +36,7 @@
                     <div class="bg-faded p-5 rounded">
                         <p class="mb-0">{{ $products->description }}</p><br>
                         <div class="intro-button mx-auto">
-                            <a class="btn btn-success btn-x2" href="{{route('order.show', ['id'=>$products->id])}}">Zamów!</a>
+                            <a class="btn btn-success btn-x2" href="{{route('order.show', ['id'=>$products->id])}}">Przejdź do zamówienia!</a>
                         </div>
 
                         <div class="intro-button mx-auto" style="margin-top: 20px;">

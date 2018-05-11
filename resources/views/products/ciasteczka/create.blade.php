@@ -30,13 +30,8 @@
                             </div>
 
                             <div class="form-group">
-                                {!! Form::label('cena', "Cena za paczkę 30 szt.:") !!}
+                                {!! Form::label('cena', "Cena za ciastko(podaj w groszach):") !!}
                                 {!! Form::number('cena', null, ['class' => 'form-control']) !!}
-                            </div>
-
-                            <div class="form-group">
-                                {!! Form::label('cena_mala', "Cena za paczkę 15 szt.:") !!}
-                                {!! Form::number('cena_mala', null, ['class' => 'form-control']) !!}
                             </div>
 
                             <div class="form-group">

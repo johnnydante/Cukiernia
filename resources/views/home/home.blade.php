@@ -7,7 +7,7 @@
             border-radius: 50px!important;
         }
         .intro-text {
-            border-radius: 20px!important;
+            border-radius: 50px!important;
         }
 
     </style>
@@ -22,7 +22,7 @@
                         <span class="section-heading-upper">Słodkie wesela</span>
                         <span class="section-heading-lower">Miłości na nowej drodze </span>
                     </h2>
-                    <p class="mb-3">Z nami każde wesele nabierze nowego wymiaru słodkości! Przepyszne ciasta i wspaniały tort weselny zostną w pamięci wszystkich gości na zawsze - jak miłość młodej pary!
+                    <p class="mb-3">Z nami każde wesele nabierze nowego wymiaru słodkości! Przepyszne ciasta i wspaniały tort weselny zostną w pamięci wszystkich gości na zawsze - jak miłość Młodej Pary!
                     </p>
                     <div class="intro-button mx-auto">
                         <a class="btn btn-primary btn-xl" href="{{route('wesele.index')}}">Zamów już dziś!</a>

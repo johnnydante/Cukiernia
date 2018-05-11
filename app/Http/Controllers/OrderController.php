@@ -50,7 +50,7 @@ class OrderController extends Controller
         else
             $cena = Product::all()->where('id', $id)->pluck('cena_mala');
 
-        if($rodzaj[0] == 'inne') {
+        if($rodzaj[0] == 'inne' || $rodzaj[0] == 'ciasteczko') {
             Order::create($request->all() + ['users_id' => $users_id, 'id_produktu' => $id,
                     'status' => 'koszyk', 'wielkosc' => '0', 'rodzaj' => $rodzaj[0], 'suma' => $request->ilosc*$cena[0]]);
         } else {
@@ -62,6 +62,8 @@ class OrderController extends Controller
 
     public function show($id)
     {
+        $rodzaj = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('rodzaj');
+        $rodzaj = collect($rodzaj)->toArray();
         $terminy = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
         $terminy_tortow = Tort::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
         $terminy_wesel = Wesele::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
@@ -106,7 +108,12 @@ class OrderController extends Controller
             {
                 if($wartosc == $terminy[$i])
                 {
-                    $wynik += $ilosci_brytfanek[$i];
+                    if($rodzaj[$i]=='ciasteczko') {
+                        $ilosci_ciasteczek[$i] = $ilosci_brytfanek[$i]/50;
+                        $wynik += $ilosci_ciasteczek[$i];
+                    } else {
+                        $wynik += $ilosci_brytfanek[$i];
+                    }
                 }
                 for($x=0; $x< $terminy_tortow->count(); $x++) {
                     if ($wartosc == $torty_array[$x]) {
@@ -128,7 +135,6 @@ class OrderController extends Controller
         $_POST['terminy_start'] = array_unique($_POST['terminy_start']);
         $_POST['terminy_end'] = array_unique($_POST['terminy_end']);
 
-
         $tablica_przekroczen = array_unique($tablica_przekroczen);
         $values = array_values($tablica_przekroczen);
         $_POST['terminyBezZamowien'] = $values;
@@ -139,10 +145,8 @@ class OrderController extends Controller
             array_push($_POST['weseles_start'], $termin_start->subDays(5)->format('Y-m-d'));
         }
 
-
         $_POST['terminyBezZamowienWesel'] = collect($terminy_wesel)->toArray();
         $_POST['terminyBezZamowien'] =  array_merge($_POST['terminyBezZamowienTortow'], $_POST['terminyBezZamowien']);
-
 
         $dodane_terminy = Callendar::all()->pluck('termin_wykluczony');
         $dodane_terminy = collect($dodane_terminy)->toArray();
@@ -155,6 +159,8 @@ class OrderController extends Controller
 
     public function edit($id)
     {
+        $rodzaj = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('rodzaj');
+        $rodzaj = collect($rodzaj)->toArray();
         $terminy = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
         $terminy_tortow = Tort::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
         $terminy_wesel = Wesele::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
@@ -199,7 +205,12 @@ class OrderController extends Controller
             {
                 if($wartosc == $terminy[$i])
                 {
-                    $wynik += $ilosci_brytfanek[$i];
+                    if($rodzaj[$i]=='ciasteczko') {
+                        $ilosci_ciasteczek[$i] = $ilosci_brytfanek[$i]/50;
+                        $wynik += $ilosci_ciasteczek[$i];
+                    } else {
+                        $wynik += $ilosci_brytfanek[$i];
+                    }
                 }
                 for($x=0; $x< $terminy_tortow->count(); $x++) {
                     if ($wartosc == $torty_array[$x]) {

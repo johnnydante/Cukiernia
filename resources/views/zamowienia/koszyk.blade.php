@@ -9,136 +9,104 @@
                         <h2 class="section-heading mb-5">
                             <span class="section-heading-upper" >Mój koszyk</span>
                         </h2>
-                        @if($_POST['koszt']>0)
-                        <h3 class="section-heading mb-5" style="margin-bottom: 30px;">
-                            <span class="section-heading-upper" style="margin-bottom: 30px;">
-                                    Łączny koszt: {{ $_POST['koszt'] }} zł
-                            </span>
-                        </h3>
-                        @endif
-                        @if( (Auth::user()->getOrder()->where('status', 'koszyk')->count() == 0) && (Auth::user()->getTort()->where('status', 'koszyk')->count() == 0) && (Auth::user()->getWesele()->where('status', 'koszyk')->count() == 0))
-
+                            @if($_POST['koszt']>0)
+                                <h3 class="section-heading mb-5" style="margin-bottom: 30px;">
+                                    <span class="section-heading-upper" style="margin-bottom: 30px;">
+                                            Łączny koszt: {{ floor($_POST['koszt']) }} zł {{ round(($_POST['koszt']-floor($_POST['koszt']))*100) }} gr
+                                    </span>
+                                </h3>
+                            @endif
+                            @if( (Auth::user()->getOrder()->where('status', 'koszyk')->count() == 0) &&
+                             (Auth::user()->getTort()->where('status', 'koszyk')->count() == 0) &&
+                             (Auth::user()->getWesele()->where('status', 'koszyk')->count() == 0))
                                 <h5>Twój koszyk jest pusty</h5>
-                            <div class="intro-button mx-auto text-center"  style=" position: relative; border-top: 1px solid; padding-top: 20px; z-index: 20;">
-                                <a class="btn btn-primary btn-x2" href="{{route('profile.index')}}">Mój profil</a>
-                            </div>
+                                <div class="intro-button mx-auto text-center"  style=" position: relative; border-top: 1px solid; padding-top: 20px; z-index: 20;">
+                                    <a class="btn btn-primary btn-x2" href="{{route('profile.index')}}">Mój profil</a>
+                                </div>
                             @else
                                 @foreach($zamowienia as $zamowienie)
-                                <div class="row" style="border-top: 1px solid; padding-top: 5px;">
-                                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-                                        <div class="card h-100" style="background-color: lightgrey;">
-                                            <img class="card-img-top" src='{{url("/storage/products_img/".$zamowienie->getProduct()->filename)}}' alt="">
+                                    <div class="row" style="border-top: 1px solid; padding-top: 5px;">
+                                        <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                                            <div class="card h-100" style="background-color: lightgrey;">
+                                                <img class="card-img-top" src='{{url("/storage/products_img/".$zamowienie->getProduct()->filename)}}' alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    @if($zamowienie->rodzaj == 'ciasteczko')
-                                    <div class="section-heading-upper" style="margin-top: 15px;">
-                                        <b>{{ $zamowienie->ilosc }}</b>  x <b>{{ $zamowienie->getProduct()->nazwa }}</b> <br>
-                                        Paczki wielkości:
-                                        @if( $zamowienie->wielkosc  == 0)
-                                            <b>{{ '30 szt.' }}</b><br>
-                                            Termin: <b>{{ $zamowienie->termin }}</b>
-                                            <br>Koszt: <b>{{ $zamowienie->getProduct()->cena*$zamowienie->ilosc }} zł</b>
-                                        @elseif($zamowienie->wielkosc  == 1)
-                                            <b>{{ '15 szt.' }}</b><br>
-                                            Termin: <b>{{ $zamowienie->termin }}</b>
-                                            <br>Koszt: <b>{{ $zamowienie->getProduct()->cena_mala*$zamowienie->ilosc }} zł</b>
+
+                                        @if($zamowienie->rodzaj == 'ciasteczko')
+                                            <div class="section-heading-upper" style="margin-top: 15px;">
+                                                <b>{{ $zamowienie->ilosc }}</b>  x <b>{{ $zamowienie->getProduct()->nazwa }}</b> <br>
+                                                Termin: <b>{{ $zamowienie->termin }}</b><br>
+                                                Koszt: <b>{{ floor(($zamowienie->getProduct()->cena*$zamowienie->ilosc)/100) }} zł
+                                                {{ round((($zamowienie->getProduct()->cena*$zamowienie->ilosc)/100 -
+                                                 floor(($zamowienie->getProduct()->cena*$zamowienie->ilosc)/100))*100) }} gr</b>
+                                            </div>
+                                        @elseif($zamowienie->rodzaj == 'ciasto')
+                                            <div class="section-heading-upper" style="margin-top: 15px;">
+                                                <b>{{ $zamowienie->ilosc }}</b>  x <b>{{ $zamowienie->getProduct()->nazwa }}</b> <br>
+                                                w brytfance wielkości: <b>{{ $zamowienie->wielkosc }}</b><br>
+                                                Termin: <b>{{ $zamowienie->termin }}</b><br>
+                                                Koszt: <b>{{ $zamowienie->getProduct()->cena_mala*$zamowienie->ilosc }} zł</b>
+                                            </div>
+                                        @elseif($zamowienie->rodzaj == 'inne')
+                                            <div class="section-heading-upper" style="margin-top: 15px;">
+                                                <b>{{ $zamowienie->ilosc }}</b>  x <b>{{ $zamowienie->getProduct()->nazwa }}</b> <br>
+                                                Termin: <b>{{ $zamowienie->termin }}</b><br>
+                                                Koszt: <b>{{ $zamowienie->getProduct()->cena*$zamowienie->ilosc }} zł</b>
+                                            </div>
                                         @endif
 
-
-                                    </div>
-                                    @elseif($zamowienie->rodzaj == 'ciasto')
-                                        <div class="section-heading-upper" style="margin-top: 15px;">
-                                            <b>{{ $zamowienie->ilosc }}</b>  x <b>{{ $zamowienie->getProduct()->nazwa }}</b> <br>
-                                            w brytfance wielkości:
-                                            @if( $zamowienie->wielkosc  == 0)
-                                                <b>{{ '24x37' }}</b>
-                                                <br>
-                                                Termin: <b>{{ $zamowienie->termin }}</b>
-                                                <br>Koszt: <b>{{ $zamowienie->getProduct()->cena*$zamowienie->ilosc }} zł</b>
-                                            @elseif($zamowienie->wielkosc  == 1)
-                                                <b>{{ '17x24' }}</b>
-                                                <br>
-                                                Termin: <b>{{ $zamowienie->termin }}</b>
-                                                <br>Koszt: <b>{{ $zamowienie->getProduct()->cena_mala*$zamowienie->ilosc }} zł</b>
-                                            @endif
-
-                                        </div>
-                                    @elseif($zamowienie->rodzaj == 'inne')
-                                        <div class="section-heading-upper" style="margin-top: 15px;">
-                                            <b>{{ $zamowienie->ilosc }}</b>  x <b>{{ $zamowienie->getProduct()->nazwa }}</b> <br>
-                                                Termin: <b>{{ $zamowienie->termin }}</b>
-                                                <br>Koszt: <b>{{ $zamowienie->getProduct()->cena*$zamowienie->ilosc }} zł</b>
-                                        </div>
-                                    @endif
-                                    <div class="col text-center" style="margin-top: 20px;">
+                                        <div class="col text-center" style="margin-top: 20px;">
                                             <div class="intro-button mx-auto">
-                                                <a class="btn btn-primary btn-x2" href="{{ route('order.edit', ['id' => $zamowienie->id]) }}">Edytuj zamówienie</a>
+                                                <a class="btn btn-primary btn-x2" href="{{ route('order.edit', ['id' => $zamowienie->id]) }}">
+                                                    Edytuj zamówienie
+                                                </a>
                                             </div>
                                             <div class="intro-button mx-auto" style="margin-top: 5px;">
-                                                <a onclick="return confirm('Czy na pewno chcesz usunąć zamówienie z koszyka?')" class="btn btn-danger btn-x2" href="{{ route('order.delete', ['id' => $zamowienie->id]) }}">Usuń z koszyka</a>
+                                                <a onclick="return confirm('Czy na pewno chcesz usunąć zamówienie z koszyka?')"
+                                                   class="btn btn-danger btn-x2" href="{{ route('order.delete', ['id' => $zamowienie->id]) }}">
+                                                    Usuń z koszyka
+                                                </a>
                                             </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-left: 20px; margin-right: 20px;">
-                                    <div class="section-heading-upper" style="margin-bottom: 20px;">
-                                        <b>Dodatkowe informacje:</b> {{ $zamowienie->info }}
+                                    <div class="row" style="margin-left: 20px; margin-right: 20px;">
+                                        <div class="section-heading-upper" style="margin-bottom: 20px;">
+                                            <b>Dodatkowe informacje:</b> {{ $zamowienie->info }}
+                                        </div>
                                     </div>
-                                </div>
                                 @endforeach
 
                                     @foreach($torty as $tort)
                                         <div class="row" style="border-top: 1px solid; padding-top: 5px;">
                                             <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-
-                                                    @if($tort->filename != '')
+                                                @if($tort->filename != '')
                                                     <div class="card h-100">
                                                         Zdjęcie pomocnicze:
                                                         <img class="card-img-top" src='{{url("/storage/products_img/".$tort->filename)}}' alt="">
                                                     </div>
-                                                        @else
+                                                @else
                                                     <div class="card h-100" style="min-height: 130px; border: solid 1px; text-align: center;">
                                                        <h1> <i class="fas fa-times"></i></h1> brak zdjęcia pomocniczego
                                                     </div>
-                                                        @endif
-
+                                                @endif
                                             </div>
                                             <div class="section-heading-upper" style="margin-top: 15px;">
-                                            Tort - <b>{{ $tort->getCategory()->nazwa }}</b> <br>
-
-                                                    Na ile osób: <b>{{ $tort->na_ile_osob }}</b><br>
-
-                                                Smak:
-                                                @if($tort->smak==0)
-                                                    <b>{{ 'waniliowy' }}</b>
-                                                @elseif($tort->smak==1)
-                                                    <b>{{ 'orzechowy' }}</b>
-                                                @elseif($tort->smak==2)
-                                                    <b>{{ 'czekoladowy' }}</b>
-                                                @elseif($tort->smak==3)
-                                                    <b>{{ 'owocowy(dodaj w opisie jaki)' }}</b>
-                                                @endif
-                                                <br>
-                                                    Rodzaj dekoracji:
-                                                    @if( $tort->rodzaj_dekoracji  == 0)
-                                                        <b>{{ 'tradycyjny' }}</b>
-                                                    @elseif($tort->rodzaj_dekoracji  == 1)
-                                                        <b>{{ 'zdjęcie na opłatku' }}</b>
-                                                    @elseif($tort->rodzaj_dekoracji  == 2)
-                                                        <b>{{ 'kształt z masy cukrowej' }}</b>
-                                                    @elseif($tort->rodzaj_dekoracji  == 3)
-                                                        <b>{{ 'inny' }}</b>
-                                                    @endif
-
-                                                        <br>
-                                                        Termin: <b>{{ $tort->termin }}</b>
-                                                </div>
-
+                                                Tort - <b>{{ $tort->getCategory()->nazwa }}</b> <br>
+                                                Na ile osób: <b>{{ $tort->na_ile_osob }}</b><br>
+                                                Smak: <b>{{ $tort->smak }}</b><br>
+                                                Rodzaj dekoracji: <b>{{ $tort->rodzaj_dekoracji }}</b> <br>
+                                                Rodzaj masy w torcie:<b> {{ $tort->rodzaj_masy }} </b><br>
+                                                Termin: <b>{{ $tort->termin }}</b>
+                                            </div>
                                             <div class="col text-center" style="margin-top: 20px;">
                                                 <div class="intro-button mx-auto">
                                                     <a class="btn btn-primary btn-x2" href="{{route('tort_order.edit', ['id' => $tort->id])}}">Edytuj zamówienie</a>
                                                 </div>
                                                 <div class="intro-button mx-auto" style="margin-top: 5px;">
-                                                    <a onclick="return confirm('Czy na pewno chcesz usunąć zamówienie z koszyka?')" class="btn btn-danger btn-x2" href="{{route('tort_order.delete', ['id' => $tort->id])}}">Usuń z koszyka</a>
+                                                    <a onclick="return confirm('Czy na pewno chcesz usunąć zamówienie z koszyka?')"
+                                                       class="btn btn-danger btn-x2" href="{{route('tort_order.delete', ['id' => $tort->id])}}">
+                                                        Usuń z koszyka
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -150,11 +118,8 @@
                                     @endforeach
 
                                     @foreach($wesela as $wesele)
-
                                         <div class="row" style="border-top: 1px solid; padding-top: 5px;">
-
                                             <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-
                                                 @if($wesele->filename != '')
                                                     <div class="card h-100">
                                                         Zdjęcie pomocnicze:
@@ -165,50 +130,31 @@
                                                         <h1> <i class="fas fa-times"></i></h1> brak zdjęcia pomocniczego
                                                     </div>
                                                 @endif
-
                                             </div>
                                             <div class="section-heading-upper" style="margin-top: 15px;">
                                                 <b>ZAMÓWIENIE WESELNE</b><br>
-                                           @if($wesele->rodzaj_tortu!=null)
-                                                Tort na <b>{{ $wesele->na_ile_osob_tort }}</b> osób<br>
-                                                Rodzaj dekoracji:
-                                                    @if($wesele->rodzaj_tortu==0)
-                                                    <b>{{ 'tradycyjny' }}</b>
-                                                    @elseif($wesele->rodzaj_tortu==1)
-                                                        <b>{{ 'nowoczesny' }}</b>
-                                                    @elseif($wesele->rodzaj_tortu==2)
-                                                        <b>{{ 'oryginalny kształt' }}</b>
-                                                    @elseif($wesele->rodzaj_tortu==3)
-                                                        <b>{{ 'inny' }}</b>
-                                                    @endif
-                                                    <br>
-                                                Smak:
-                                                    @if($wesele->smak==0)
-                                                        <b>{{ 'waniliowy' }}</b>
-                                                    @elseif($wesele->smak==1)
-                                                        <b>{{ 'orzechowy' }}</b>
-                                                    @elseif($wesele->smak==2)
-                                                        <b>{{ 'czekoladowy' }}</b>
-                                                    @elseif($wesele->smak==3)
-                                                        <b>{{ 'owocowy(dodaj w opisie jaki)' }}</b>
-                                                    @endif
-                                            @endif
-
-                                                <br>
+                                                @if($wesele->rodzaj_tortu!=null)
+                                                    Tort na <b>{{ $wesele->na_ile_osob_tort }}</b> osób<br>
+                                                    Rodzaj dekoracji: <b>{{ $wesele->rodzaj_tortu }}</b><br>
+                                                    Smak: <b>{{ $wesele->smak }}</b><br>
+                                                    Rodzaj masy w torcie: <b>{{ $wesele->rodzaj_masy }}</b><br>
+                                                @endif
                                                 Termin: <b>{{ $wesele->termin }}</b>
                                             </div>
-
-
                                             <div class="col text-center" style="margin-top: 20px;">
                                                 <div class="intro-button mx-auto">
-                                                    <a class="btn btn-primary btn-x2" href="{{route('zamowWesele.edit', ['id' => $wesele->id])}}">Edytuj zamówienie</a>
+                                                    <a class="btn btn-primary btn-x2" href="{{route('zamowWesele.edit', ['id' => $wesele->id])}}">
+                                                        Edytuj zamówienie
+                                                    </a>
                                                 </div>
                                                 <div class="intro-button mx-auto" style="margin-top: 5px;">
-                                                    <a onclick="return confirm('Czy na pewno chcesz usunąć zamówienie z koszyka?')" class="btn btn-danger btn-x2" href="{{route('wesele.delete', ['id' => $wesele->id])}}">Usuń z koszyka</a>
+                                                    <a onclick="return confirm('Czy na pewno chcesz usunąć zamówienie z koszyka?')"
+                                                       class="btn btn-danger btn-x2" href="{{route('wesele.delete', ['id' => $wesele->id])}}">
+                                                        Usuń z koszyka
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
-
 
                                            <b> Ciasta na salę:</b><br>-
                                             @if($wesele->sernik>0)
@@ -238,20 +184,44 @@
                                             @if($wesele->czekoladowe>0)
                                                 <b>{{ $wesele->czekoladowe }}</b> x czekoladowe,
                                             @endif
-
-                                        @if($wesele->rodzaj_paczki!=null)
-                                            <br>
-                                            <b>  Paczki dla gości:  <br> - {{ $wesele->ile_paczek }}</b> szt., w których ma być po
-                                                @if( $wesele->wielkosc_paczki==0)
-                                                <b>{{ '5 kawałków ciasta i 5 ciasteczek' }}</b>
-                                                @else
-                                                <b>{{ '10 kawałków ciasta i 10 ciasteczek' }}</b>
-                                                @endif
-                                            @if( $wesele->rodzaj_paczki==0)
-                                                {{ '(ciasta jak na sali)' }}
-                                            @else
-                                                {{ '(ciasta inne, niż na sali)' }}
+                                            @if($wesele->seromak>0)
+                                                <b>{{ $wesele->seromak }}</b> x seromak,
                                             @endif
+                                            @if($wesele->pani_walewska>0)
+                                                <b>{{ $wesele->pani_walewska }}</b> x pani Walewska,
+                                            @endif
+                                            @if($wesele->ambasador>0)
+                                                <b>{{ $wesele->ambasador }}</b> x ambasador,
+                                            @endif
+                                            @if($wesele->brzoskwiniowiec>0)
+                                                <b>{{ $wesele->brzoskwiniowiec }}</b> x brzoskwiniowiec,
+                                            @endif
+                                            @if($wesele->pianka_z_malinami>0)
+                                                <b>{{ $wesele->pianka_z_malinami }}</b> x Pianka z malinami,
+                                            @endif
+                                            @if($wesele->królewiec>0)
+                                                <b>{{ $wesele->królewiec }}</b> x królewiec,
+                                            @endif
+                                            @if($wesele->szpinakowe>0)
+                                                <b>{{ $wesele->szpinakowe }}</b> x szpinakowe z bitą śmietaną i malinami,
+                                            @endif
+                                            @if($wesele->powidła_krem>0)
+                                                <b>{{ $wesele->powidła_krem }}</b> x ciasto z powidłami i kremem,
+                                            @endif
+                                            @if($wesele->rureczki>0)
+                                                <b>{{ $wesele->rureczki }}</b> x rureczki,
+                                            @endif
+                                            @if($wesele->babeczki>0)
+                                                <b>{{ $wesele->babeczki }}</b> x babeczki,
+                                            @endif
+                                            @if($wesele->ciasteczka_mieszane>0)
+                                                <b>{{ $wesele->ciasteczka_mieszane }}</b> x ciasteczka mieszane,
+                                            @endif
+
+                                        @if($wesele->wielkosc_paczki!=null)
+                                            <br>
+                                            <b>  Paczki dla gości:  <br> - {{ $wesele->ile_paczek }}</b> szt.,
+                                            w których ma być po {{ $wesele->wielkosc_paczki }}
                                         @endif
                                         <div class="row" style="margin-left: 20px; margin-right: 20px;">
                                             <div class="section-heading-upper" style=" margin-bottom: 20px;">

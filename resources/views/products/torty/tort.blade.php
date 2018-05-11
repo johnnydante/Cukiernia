@@ -8,7 +8,7 @@
 
         }
         .bg-faded {
-            border-radius: 20px!important;
+            border-radius: 30px!important;
         }
 
     </style>
@@ -30,15 +30,15 @@
 
                         @if($torts->nazwa == 'Wesele')
                         <div class="intro-button mx-auto">
-                            <a class="btn btn-success btn-x2" href="{{route('zamowTort.index',['id'=>$torts->id])}}">Zamów!</a>
+                            <a class="btn btn-success btn-x2" href="{{route('zamowTort.index',['id'=>$torts->id])}}">Przejdź do zamówienia!</a>
                         </div><br>
                             Lub przejdź do zamówień weselnych, gdzie poza tortem możesz zamówić również ciasta na salę, paczki dla gości, itp<br><br>
                             <div class="intro-button mx-auto">
-                                <a class="btn btn-success btn-x2" href="{{route('wesele.index')}}">Zamówienie weselne</a>
+                                <a class="btn btn-success btn-x2" href="{{route('wesele.index')}}">Przejdź do zamówienia weselnego</a>
                             </div>
                         @else
                             <div class="intro-button mx-auto">
-                                <a class="btn btn-success btn-x2" href="{{route('zamowTort.index',['id'=>$torts->id])}}">Zamów!</a>
+                                <a class="btn btn-success btn-x2" href="{{route('zamowTort.index',['id'=>$torts->id])}}">Przejdź do zamówienia!</a>
                             </div>
                             @endif
 
