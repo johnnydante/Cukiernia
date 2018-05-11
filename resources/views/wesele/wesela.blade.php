@@ -7,7 +7,7 @@
 
         }
         .bg-faded {
-            border-radius: 20px!important;
+            border-radius: 50px!important;
         }
         .clearfix {
             margin-top: 0;
@@ -91,7 +91,7 @@
                     <h2 class="section-heading mb-4">
                         <span class="section-heading-upper">Paczki dla gości</span>
                     </h2>
-                    <p class="mb-3 napis">Najważniejsi na każdym weselu są oczywiście goście! To dla nich Młoda Para szykuje całe uroczyste przyjęcie, dlatego paczki dla gości również muszą być wyjątkowe! Kliknij dodaj poniżej, a następnie przejdź dalej, aby samemu zdecydować o szczegółach dotyczących paczek dla gości.
+                    <p class="mb-3 napis">Najważniejsi dla każdej Młodej Pary są oczywiście goście! To dla nich Młoda Para szykuje całe uroczyste przyjęcie, dlatego paczki dla gości również muszą być wyjątkowe! Kliknij dodaj poniżej, a następnie przejdź dalej, aby samemu zdecydować o szczegółach dotyczących paczek dla gości.
                     </p>
                     <div class="form-group">
                     {!! Form::label('paczki', "Dodaj") !!}

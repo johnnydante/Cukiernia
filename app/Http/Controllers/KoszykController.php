@@ -21,12 +21,16 @@ class KoszykController extends Controller
 
         $_POST['koszt'] = 0;
         $_POST['koszt_tortow'] = 0;
-        foreach($zamowienia as $jedno) {
 
-            if($jedno->wielkosc == 0) {
-                $_POST['koszt'] += $jedno->getProduct()->cena * $jedno->ilosc;
+        foreach($zamowienia as $jedno) {
+            if($jedno->rodzaj == 'ciasteczko') {
+                $_POST['koszt'] += $jedno->getProduct()->cena/100 * $jedno->ilosc;
             } else {
-                $_POST['koszt'] += $jedno->getProduct()->cena_mala * $jedno->ilosc;
+                if ($jedno->wielkosc == 0) {
+                    $_POST['koszt'] += $jedno->getProduct()->cena * $jedno->ilosc;
+                } else {
+                    $_POST['koszt'] += $jedno->getProduct()->cena_mala * $jedno->ilosc;
+                }
             }
         }
 
@@ -45,15 +49,23 @@ class KoszykController extends Controller
         $wesela= Wesele::orderBy('termin')->paginate(1000000)->where('users_id', $user_id);
         $_POST['koszt_oczekuje'] = 0;
         $_POST['koszt_tortow_oczekuje'] = 0;
+        $_POST['koszt_wesel_oczekuje'] = 0;
         foreach($zamowienia->where('status', 'oczekuje') as $jedno) {
-            if($jedno->wielkosc == 0) {
-                $_POST['koszt_oczekuje'] += $jedno->getProduct()->cena * $jedno->ilosc;
+            if($jedno->rodzaj == 'ciasteczko') {
+                $_POST['koszt_oczekuje'] += $jedno->getProduct()->cena/100 * $jedno->ilosc;
             } else {
-                $_POST['koszt_oczekuje'] += $jedno->getProduct()->cena_mala * $jedno->ilosc;
+                if ($jedno->wielkosc == 0) {
+                    $_POST['koszt_oczekuje'] += $jedno->getProduct()->cena * $jedno->ilosc;
+                } else {
+                    $_POST['koszt_oczekuje'] += $jedno->getProduct()->cena_mala * $jedno->ilosc;
+                }
             }
         }
         foreach($torty->where('status', 'oczekuje') as $jeden) {
             $_POST['koszt_tortow_oczekuje'] += $jeden->cena;
+        }
+        foreach($wesela->where('status','oczekuje') as $jeden) {
+            $_POST['koszt_wesel_oczekuje'] += $jeden->cena;
         }
         return view('zamowienia.zamowienia', compact(['zamowienia','torty','wesela']));
     }
@@ -68,10 +80,14 @@ class KoszykController extends Controller
         $_POST['koszt_tortow'] = 0;
         $_POST['koszt_wesel'] = 0;
         foreach($zamowienia->where('status','w realizacji') as $jedno) {
-            if($jedno->wielkosc == 0) {
-                $_POST['koszt'] += $jedno->getProduct()->cena * $jedno->ilosc;
+            if($jedno->rodzaj == 'ciasteczko') {
+                $_POST['koszt'] += $jedno->getProduct()->cena/100 * $jedno->ilosc;
             } else {
-                $_POST['koszt'] += $jedno->getProduct()->cena_mala * $jedno->ilosc;
+                if ($jedno->wielkosc == 0) {
+                    $_POST['koszt'] += $jedno->getProduct()->cena * $jedno->ilosc;
+                } else {
+                    $_POST['koszt'] += $jedno->getProduct()->cena_mala * $jedno->ilosc;
+                }
             }
         }
         foreach($torty->where('status','w realizacji') as $jeden) {

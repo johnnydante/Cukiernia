@@ -4,11 +4,11 @@
 
 <style>
     .card-img-top{
-        filter: brightness(90%);
+        filter: brightness(95%);
     }
 
     .card-img-top:hover{
-        filter: brightness(100%);
+        filter: brightness(105%);
     }
 
 </style>
@@ -22,7 +22,7 @@
 
                 <a href="{{route('torty.index')}}">
 
-                    <img class="card-img-top" style="border-radius: 30px; border: solid 1px; border-color: rgba(47,23,15,.9); box-shadow: 5px 5px 10px darkgray;" src='{{url("/temp/img/produkty/obraz-1.jpg")}}' alt=""></a>
+                    <img class="card-img-top" style="border-radius: 50px; border: solid 1px; border-color: rgba(47,23,15,.9); box-shadow: 5px 5px 10px darkgray;" src='{{url("/temp/img/produkty/obraz-1.jpg")}}' alt=""></a>
 
                 <div class="intro-button mx-auto" style="margin-top: 1px;">
                     <a class="btn btn-primary btn-x2" style="color: rgba(47,23,15,.9);" href="{{route('torty.index')}}">Torty</a>
@@ -37,7 +37,7 @@
 
                 <a href="{{route('products.index')}}">
 
-                    <img class="card-img-top" style="border-radius: 30px; border: solid 1px; border-color: black; box-shadow: 5px 5px 10px grey;" src='{{url("/temp/img/produkty/obraz-2.jpg")}}' alt="" ></a>
+                    <img class="card-img-top" style="border-radius: 50px; border: solid 1px; border-color: black; box-shadow: 5px 5px 10px grey;" src='{{url("/temp/img/produkty/obraz-2.jpg")}}' alt="" ></a>
 
                     <div class="intro-button mx-auto" style="margin-top: 1px;">
                         <a class="btn btn-primary btn-x2" style="color: rgba(47,23,15,.9);" href="{{route('products.index')}}">Ciasta</a>
@@ -52,7 +52,7 @@
 
                 <a href="{{route('ciasteczka.index')}}">
 
-                    <img class="card-img-top" style="border-radius: 30px; border: solid 1px; border-color: black; box-shadow: 5px 5px 10px grey;" src='{{url("/temp/img/produkty/obraz-3.jpg")}}' alt=""></a>
+                    <img class="card-img-top" style="border-radius: 50px; border: solid 1px; border-color: black; box-shadow: 5px 5px 10px grey;" src='{{url("/temp/img/produkty/obraz-3.jpg")}}' alt=""></a>
 
                 <div class="intro-button mx-auto" style="margin-top: 1px;">
                     <a class="btn btn-primary btn-x2" style="color: rgba(47,23,15,.9);" href="{{route('ciasteczka.index')}}">Ciasteczka</a>
@@ -67,7 +67,7 @@
 
                 <a href="{{route('inne.index')}}">
 
-                    <img class="card-img-top" style="border-radius: 30px; border: solid 1px; border-color: black; box-shadow: 5px 5px 10px grey;" src='{{url("/temp/img/produkty/inne.jpg")}}' alt=""></a>
+                    <img class="card-img-top" style="border-radius: 50px; border: solid 1px; border-color: black; box-shadow: 5px 5px 10px grey;" src='{{url("/temp/img/produkty/inne.jpg")}}' alt=""></a>
 
                 <div class="intro-button mx-auto" style="margin-top: 1px;">
                     <a class="btn btn-primary btn-x2" style="color: rgba(47,23,15,.9);" href="{{route('inne.index')}}">Inne</a>

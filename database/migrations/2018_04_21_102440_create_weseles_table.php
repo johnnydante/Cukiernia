@@ -32,7 +32,6 @@ class CreateWeselesTable extends Migration
             $table->integer('czekoladowe')->nullable();
             $table->integer('ile_paczek')->unsigned();
             $table->string('wielkosc_paczki', 55)->nullable();
-            $table->string('rodzaj_paczki', 55)->nullable();
             $table->text('info')->nullable();
             $table->string('status',91);
             $table->timestamps();

@@ -13,7 +13,7 @@ class KategorieTableSeeder extends Seeder
     public function run()
     {
         $product = new Kategorie();
-        $product->nazwa = 'Wesele';
+        $product->nazwa = 'Ślub';
         $product->opis = 'Torty na wesela';
         $product->filename = 'wesele.jpg';
         $product->save();

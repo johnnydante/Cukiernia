@@ -20,8 +20,9 @@
 
 
                         @if($wybik = count($_POST['tablica_terminow'])>0)
-                            Z powodu zbyt dużej ilości zamówień, niektóre terminy są już niedostępne,
-                            <br> poniżej formularza znajduje się się kalendarz terminów.
+                            Z powodu zbyt dużej ilości zamówień, niektóre terminy mogą być niedostępne,
+                            poniżej formularza znajduje się się kalendarz terminów, w którym wykluczone terminy będą zaznaczone na
+                            <span style="color: red;"><b><i>czerwono</i></b></span>.
                             <br>Przepraszamy i prosimy o składanie zamówień na wolne dni, dziękujemy!
                         @endif
                         <div class="row">
@@ -49,35 +50,43 @@
                                     </div>
 
                                     <div class="form-group">
-                                        {!! Form::label('rodzaj_tortu', "Rodzaj Tortu:") !!}
-                                        {!! Form::select('rodzaj_tortu',  ['tradycyjny', 'nowoczesny', 'oryginalny kształt', 'inny(dodaj w opisie)']) !!}
+                                        {!! Form::label('smak', "Smak Tortu:") !!}
+                                        {!! Form::select('smak',  ['waniliowy' => 'waniliowy', 'orzechowy' => 'orzechowy',
+                                        'czekoladowy' => 'czekoladowy', 'chałwowy' => 'chałwowy', 'adwokatowy' => 'adwokatowy',
+                                         'owocowy' => 'owocowy', 'inny(dodaj w opisie jaki)' => 'inny(dodaj w opisie jaki)']) !!}
                                     </div>
 
                                     <div class="form-group">
-                                        {!! Form::label('smak', "Smak Tortu:") !!}
-                                        {!! Form::select('smak',  ['waniliowy', 'orzechowy', 'czekoladowy', 'owocowy(dodaj w opisie jaki)']) !!}
+                                        {!! Form::label('rodzaj_tortu', "Rodzaj dekoracji:") !!}
+                                        {!! Form::select('rodzaj_tortu',  ['tradycyjny' => 'tradycyjny',
+                                         'w stylu angielskim(pokryty masą cukrową)' => 'w stylu angielskim(pokryty masą cukrową)',
+                                         'oryginalny(np. samochód, itp - dodaj w opisie)' => 'oryginalny(np. samochód, itp - dodaj w opisie)',
+                                          'inny(dodaj w opisie)' => 'inny(dodaj w opisie)']) !!}
+                                    </div>
+
+                                    <div class="form-group">
+                                        {!! Form::label('rodzaj_masy', "Rodzaj masy w torcie:") !!}
+                                        {!! Form::select('rodzaj_masy',  ['bita śmietana' => 'bita śmietana',
+                                         'krem z masy' => 'krem z masy', 'krem budyniowy' => 'krem budyniowy']) !!}
                                     </div>
 
                                     <span style=" color: black;">
-    Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, co chcesz pokazać na zdjęciu, to możesz dodać zdjęcie i uwzględnić szczegóły w opisie.</span><br><br>
+    Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, co chcesz pokazać na zdjęciu, to możesz dodać zdjęcie i uwzględnić szczegóły w opisie. <br> Jeżeli chcesz, aby tort był piętrowy, lub na stelażu, albo w jakimś konkretnym kształcie, to dodaj tę informację w opisie</span><br><br>
                                     <div class="form-group">
                                         {!! Form::label('filename', "Zdjęcie:") !!}
                                         {!! Form::file('filename', null, ['class' => 'form-control']) !!}
                                     </div>
                                 @endif
-                                <div class="form-group">
-                                    {!! Form::label('info', "Dodatkowe informacje:") !!}
-                                    {!! Form::textarea('info', null, ['class' => 'form-control']) !!}
-                                </div>
+
                                 @if(isset($_GET['ciasta']))
                                     <br>
-                                    <b style="color: black;">Podaj ilości brytfanek ciast, które chcesz na salę:</b><br><br>
+                                    <b style="color: black;">Podaj ilości brytfanek(24x37cm) ciast oraz ilości ciasteczek(szt.), które chcesz na salę:</b><br><br>
                                     <div class="form-group">
                                         {!! Form::label('sernik', "Sernik:") !!}
                                         {!! Form::number('sernik',  null, ['class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Form::label('smietana_galaertka', "Ciasto z bitą śmietaną i galaretką:") !!}
+                                        {!! Form::label('smietana_galaertka', "Ciasto z galaretką i owocami:") !!}
                                         {!! Form::number('smietana_galaertka',  null, ['class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group">
@@ -89,7 +98,7 @@
                                         {!! Form::number('makowiec',  null, ['class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Form::label('owocowe', "Ciasto owocowe:") !!}
+                                        {!! Form::label('owocowe', "Ciasto ucierane z owocami:") !!}
                                         {!! Form::number('owocowe',  null, ['class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group">
@@ -105,8 +114,52 @@
                                         {!! Form::number('miodownik',  null, ['class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Form::label('czekoladowe', "Czekoladowe:") !!}
+                                        {!! Form::label('czekoladowe', "Czekoladowe z gruszkami:") !!}
                                         {!! Form::number('czekoladowe',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('seromak', "Seromak:") !!}
+                                        {!! Form::number('seromak',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('pani_walewska', "Pani Walewska:") !!}
+                                        {!! Form::number('pani_walewska',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('ambasador', "Ambasador:") !!}
+                                        {!! Form::number('ambasador',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('brzoskwiniowiec', "Brzoskwiniowiec:") !!}
+                                        {!! Form::number('brzoskwiniowiec',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('pianka_z_malinami', "Pianka z malinami:") !!}
+                                        {!! Form::number('pianka_z_malinami',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('królewiec', "Królewiec:") !!}
+                                        {!! Form::number('królewiec',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('szpinakowe', "Szpinakowe z bitą śmietaną i malinami:") !!}
+                                        {!! Form::number('szpinakowe',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('powidła_krem', "Ciasto z powidłami i kremem:") !!}
+                                        {!! Form::number('powidła_krem',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('rureczki', "Rureczki:") !!}
+                                        {!! Form::number('rureczki',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('babeczki', "Babeczki:") !!}
+                                        {!! Form::number('babeczki',  null, ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('ciasteczka_mieszane', "Ciasteczka mieszane:") !!}
+                                        {!! Form::number('ciasteczka_mieszane',  null, ['class' => 'form-control']) !!}
                                     </div>
                                 @endif
 
@@ -120,15 +173,16 @@
 
                                     <div class="form-group">
                                         {!! Form::label('wielkosc_paczki', "Wielkość paczek:") !!}
-                                        {!! Form::select('wielkosc_paczki',  ['5 kawałków ciasta, 5 ciasteczek', '10 kawałków ciasta, 10 ciasteczek']) !!}
-                                    </div>
-
-                                    <div class="form-group">
-                                        {!! Form::label('rodzaj_paczki', "Rodzaj paczek:") !!}
-                                        {!! Form::select('rodzaj_paczki',  ['ciasta z sali', 'inne ciasta']) !!}
+                                        {!! Form::select('wielkosc_paczki',  [
+                                        '3 kawałki ciasta, 2 rogaliki, 2 rureczki, 6 ciasteczek' => '3 kawałki ciasta, 2 rogaliki, 2 rureczki, 6 ciasteczek',
+                                        '4 kawałki ciasta, 6 ciasteczek' => '4 kawałki ciasta, 6 ciasteczek']) !!}
                                     </div>
                                 @endif
 
+                                <div class="form-group">
+                                    {!! Form::label('info', "Dodatkowy opis:") !!}
+                                    {!! Form::textarea('info', null, ['class' => 'form-control']) !!}
+                                </div>
 
                                 <div class="form-group">
                                     {!! Form::submit('Złóż zamówienie', ['class' => 'btn btn-success']) !!}

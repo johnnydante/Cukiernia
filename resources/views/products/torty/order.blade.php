@@ -24,8 +24,10 @@
 
                                 @if($wybik = count($_POST['tablica_terminow'])>0)
                                     <span style="text-align: justify; color: black;">
-                                    Z powodu zbyt dużej ilości zamówień, niektóre terminy są już niedostępne, poniżej formularza znajduje się się kalendarz terminów.
-                                    <br>Przepraszamy i prosimy o składanie zamówień na wolne dni, dziękujemy!
+                                    Z powodu zbyt dużej ilości zamówień, niektóre terminy mogą być niedostępne,
+                            poniżej formularza znajduje się się kalendarz terminów, w którym wykluczone terminy będą zaznaczone na
+                            <span style="color: red;"><b><i>czerwono</i></b></span>.
+                            <br>Przepraszamy i prosimy o składanie zamówień na wolne dni, dziękujemy!
                                     </span><br><br>
                                 @endif
 
@@ -50,17 +52,32 @@
 
                                 <div class="form-group">
                                     {!! Form::label('smak', "Smak Tortu:") !!}
-                                    {!! Form::select('smak',  ['waniliowy', 'orzechowy', 'czekoladowy', 'owocowy(dodaj w opisie jaki)']) !!}
+                                    {!! Form::select('smak',  ['waniliowy' => 'waniliowy', 'orzechowy' => 'orzechowy',
+                                    'czekoladowy' => 'czekoladowy', 'chałwowy' => 'chałwowy', 'adwokatowy' => 'adwokatowy',
+                                     'owocowy' => 'owocowy', 'inny(dodaj w opisie jaki)' => 'inny(dodaj w opisie jaki)']) !!}
                                 </div>
 
                                 <div class="form-group">
                                     {!! Form::label('rodzaj_dekoracji', "Rodzaj dekoracji:") !!}
-                                    {!! Form::select('rodzaj_dekoracji',  ['tradycyjny', 'zdjęcie na opłatku', 'kształt z masy cukrowej', 'inny(dodaj w opisie)']) !!}
+                                    {!! Form::select('rodzaj_dekoracji',  ['tradycyjny' => 'tradycyjny',
+                                     'zdjęcie na opłatku' => 'zdjęcie na opłatku',
+                                     'w stylu angielskim(pokryty masą cukrową)' => 'w stylu angielskim(pokryty masą cukrową)',
+                                     'obsypany płatkami kokosa' => 'obsypany płatkami kokosa',
+                                      'inny(dodaj w opisie)' => 'inny(dodaj w opisie)']) !!}
                                 </div>
 
-<span style=" color: black;">
-Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, co chcesz pokazać na zdjęciu, to możesz dodać zdjęcie i uwzględnić szczegóły w opisie.</span><br><br>
                                 <div class="form-group">
+                                    {!! Form::label('rodzaj_masy', "Rodzaj masy w torcie:") !!}
+                                    {!! Form::select('rodzaj_masy',  ['bita śmietana' => 'bita śmietana',
+                                     'krem z masy' => 'krem z masy', 'krem budyniowy' => 'krem budyniowy']) !!}
+                                </div>
+
+                                <span style=" color: black;">
+                                    Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś,
+                                    co chcesz pokazać na zdjęciu, to możesz dodać zdjęcie i uwzględnić szczegóły w opisie.
+                                </span><br><br>
+
+                                    <div class="form-group">
                                     {!! Form::label('filename', "Zdjęcie:") !!}
                                     {!! Form::file('filename', null, ['class' => 'form-control']) !!}
                                 </div>
@@ -181,11 +198,8 @@ Jeżeli chcesz, aby tort wyglądał podobnie do innego, lub miał w sobie coś, 
                 dayNamesShort: ['Nd', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb'],
                 monthNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
 
-
                 events: events
-
             });
-
         });
 
     </script>

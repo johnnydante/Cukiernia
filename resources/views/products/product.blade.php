@@ -7,7 +7,7 @@
             border-radius: 50px!important;
         }
         .bg-faded {
-            border-radius: 20px!important;
+            border-radius: 30px!important;
         }
 
     </style>
@@ -28,7 +28,7 @@
                     <div class="bg-faded p-5 rounded">
                         <p class="mb-0">{{ $products->description }}</p><br>
                         <div class="intro-button mx-auto">
-                            <a class="btn btn-success btn-x2" href="{{route('order.show', ['id'=>$products->id])}}">Zamów!</a>
+                            <a class="btn btn-success btn-x2" href="{{route('order.show', ['id'=>$products->id])}}">Przejdź do zamówienia!</a>
                         </div>
 
                         <div class="intro-button mx-auto" style="margin-top: 20px;">

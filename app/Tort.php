@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tort extends Model
 {
     protected $fillable = [
-        'users_id', 'id_kategorii', 'na_ile_osob', 'rodzaj_dekoracji', 'status', 'info', 'termin', 'filename', 'cena', 'smak'
+        'users_id', 'id_kategorii', 'na_ile_osob', 'rodzaj_dekoracji', 'status', 'info', 'termin', 'filename', 'cena', 'smak', 'rodzaj_masy'
     ];
 
     public function getCategory(){

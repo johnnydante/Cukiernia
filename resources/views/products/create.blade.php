@@ -34,7 +34,7 @@
                             </div>
 
                             <div class="form-group">
-                                {!! Form::label('cena_mala', "Cena za brytfankę 17x24:") !!}
+                                {!! Form::label('cena_mala', "Cena za brytfankę 23x28:") !!}
                                 {!! Form::number('cena_mala', null, ['class' => 'form-control']) !!}
                             </div>
 

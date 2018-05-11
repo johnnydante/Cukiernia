@@ -6,7 +6,7 @@
             border-radius: 50px!important;
         }
         .bg-faded {
-            border-radius: 20px!important;
+            border-radius: 50px!important;
         }
 
     </style>

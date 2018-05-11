@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddProductRequest;
-use App\Http\Requests\EditProductRequest;
+use App\Http\Requests\AddInneRequest;
+use App\Http\Requests\EditInneRequest;
 use App\Product;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
@@ -23,7 +23,7 @@ class CiasteczkaController extends Controller
             return view('products.ciasteczka.create');
     }
 
-    public function store(AddProductRequest $request)
+    public function store(AddInneRequest $request)
     {
             $image = Input::file('filename');
             $filename  = time() . '.' . $image->getClientOriginalExtension();
@@ -39,7 +39,7 @@ class CiasteczkaController extends Controller
 
             Product::create(
                 $request->except('filename') +
-                ['filename' => $filename, 'rodzaj' => 'ciasteczko']
+                ['filename' => $filename, 'rodzaj' => 'ciasteczko', 'cena_mala' => $request->cena]
             );
             return redirect(route('ciasteczka.index'));
     }
@@ -56,7 +56,7 @@ class CiasteczkaController extends Controller
             return view('products.ciasteczka.edit', compact('products'));
     }
 
-    public function update(EditProductRequest $request, $id)
+    public function update(EditInneRequest $request, $id)
     {
             Product::find($id)->update(
                 $request->except('filename')

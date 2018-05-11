@@ -22,6 +22,8 @@ class WeseleController extends Controller
 
     public function show()
     {
+        $rodzaj = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('rodzaj');
+        $rodzaj = collect($rodzaj)->toArray();
         $terminy = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
         $terminy_tortow = Tort::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
         $terminy_wesel = Wesele::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
@@ -66,7 +68,12 @@ class WeseleController extends Controller
             {
                 if($wartosc == $terminy[$i])
                 {
-                    $wynik += $ilosci_brytfanek[$i];
+                    if($rodzaj[$i]=='ciasteczko') {
+                        $ilosci_ciasteczek[$i] = $ilosci_brytfanek[$i]/50;
+                        $wynik += $ilosci_ciasteczek[$i];
+                    } else {
+                        $wynik += $ilosci_brytfanek[$i];
+                    }
                 }
                 for($x=0; $x< $terminy_tortow->count(); $x++) {
                     if ($wartosc == $torty_array[$x]) {
@@ -153,6 +160,8 @@ class WeseleController extends Controller
 
     public function edit($id) {
         if(Wesele::find($id)->getUser() == Auth::user()) {
+            $rodzaj = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('rodzaj');
+            $rodzaj = collect($rodzaj)->toArray();
             $terminy = Order::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
             $terminy_tortow = Tort::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
             $terminy_wesel = Wesele::all()->whereIn('status', ['oczekuje', 'w realizacji'])->pluck('termin');
@@ -197,7 +206,12 @@ class WeseleController extends Controller
                 {
                     if($wartosc == $terminy[$i])
                     {
-                        $wynik += $ilosci_brytfanek[$i];
+                        if($rodzaj[$i]=='ciasteczko') {
+                            $ilosci_ciasteczek[$i] = $ilosci_brytfanek[$i]/50;
+                            $wynik += $ilosci_ciasteczek[$i];
+                        } else {
+                            $wynik += $ilosci_brytfanek[$i];
+                        }
                     }
                     for($x=0; $x< $terminy_tortow->count(); $x++) {
                         if ($wartosc == $torty_array[$x]) {

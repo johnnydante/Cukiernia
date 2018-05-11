@@ -4,11 +4,11 @@
 
     <style>
         .card-img-top{
-            filter: brightness(90%);
+            filter: brightness(100%);
         }
 
         .card-img-top:hover{
-            filter: brightness(100%);
+            filter: brightness(115%);
         }
 
     </style>
@@ -27,7 +27,7 @@
 
                 <a href="{{route('inne_jedno.index',['id'=>$jedno->id])}}">
 
-                    <img class="card-img-top" style="border-radius: 15px; box-shadow: 3px 3px 7px darkgray; border: solid 1px; border-color: rgba(47,23,15,.9);;" src='{{url("/storage/products_img/".$jedno->filename)}}' alt=""></a>
+                    <img class="card-img-top" style="border-radius: 25px; box-shadow: 3px 3px 7px darkgray; border: solid 1px; border-color: rgba(47,23,15,.9);;" src='{{url("/storage/products_img/".$jedno->filename)}}' alt=""></a>
 
                     <div class="intro-button mx-auto" style="margin-top: 1px;">
                         <a class="btn btn-primary btn-x2" style="color: rgba(47,23,15,.9);" href="{{route('inne_jedno.index',['id'=>$jedno->id])}}">{{ $jedno->nazwa }}</a>
